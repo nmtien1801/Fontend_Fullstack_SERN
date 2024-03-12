@@ -35,6 +35,18 @@
       text-align: center;
       font-weight: 600;
     }
+    .custom-input-password {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      i {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+      }
+    }
     .forgot-password {
       text-align: center;
       a {
@@ -43,6 +55,7 @@
           text-decoration: underline;
         }
       }
+
       .social-login {
         i {
           font-size: 28px;
