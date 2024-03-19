@@ -1,0 +1,42 @@
+.modal-user {
+  .content-body {
+    .red {
+      color: red;
+    }
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+//hide arrow input number
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+//
+.manage-user-container {
+  i {
+    padding-right: 7px;
+  }
+
+  .action {
+    .refresh {
+      margin-right: 10px;
+    }
+  }
+  .user-body {
+    .edit {
+      color: orange;
+      cursor: pointer;
+    }
+    .delete {
+      color: red;
+      cursor: pointer;
+    }
+  }
+}

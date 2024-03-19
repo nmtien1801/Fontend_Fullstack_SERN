@@ -35,7 +35,7 @@ class Login extends Component {
       errMessage: "",
     });
     let res = await handleLoginApi(this.state.valueLogin, this.state.password);
-    if (res && +res.EC == 0) {
+    if (res && +res.EC === 0) {
       toast.success(res.EM);
       this.props.userLoginSuccess(res.DT);
     } else {
