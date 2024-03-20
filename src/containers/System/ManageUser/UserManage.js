@@ -43,9 +43,12 @@ class UserManage extends Component {
   async componentDidMount() {
     await this.fetchUser();
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currentPage !== this.props.currentPage) {
-      this.fetchUser();
+
+  async componentDidUpdate(prevProps, prevState) {
+    // Kiểm tra nếu currentPage đã thay đổi so với giá trị trước đó
+    if (this.state.currentPage !== prevState.currentPage) {
+      // Gọi lại fetchUser khi currentPage thay đổi
+      await this.fetchUser();
     }
   }
 
@@ -221,7 +224,7 @@ class UserManage extends Component {
               <div className="user-footer">
                 <ReactPaginate
                   nextLabel="next >"
-                  onPageChange={handlePageClick}
+                  onPageChange={this.handlePageClick}
                   pageRangeDisplayed={3}
                   marginPagesDisplayed={2}
                   pageCount={totalPage}

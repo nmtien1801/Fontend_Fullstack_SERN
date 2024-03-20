@@ -4,6 +4,10 @@ const handleLoginApi = (valueLogin, password) => {
   return customizeAxios.post(`/api/v1/login`, { valueLogin, password });
 };
 
+const logoutUser = () => {
+  return customizeAxios.post("/api/v1/logout");
+};
+
 const fetchAllUser = (page, limit) => {
   // dùng `` (temlate string) để nối chuỗi nhanh thay +
   return customizeAxios.get(`/api/v1/user/read?page=${page}&limit=${limit}`);
@@ -31,4 +35,12 @@ const deleteUser = (user) => {
     // headers: { Authorization: "***" },
   });
 };
-export { handleLoginApi, fetchAllUser ,fetchGroup, createNewUser, updateCurrentUser,deleteUser};
+export {
+  handleLoginApi,
+  fetchAllUser,
+  fetchGroup,
+  createNewUser,
+  updateCurrentUser,
+  deleteUser,
+  logoutUser,
+};
