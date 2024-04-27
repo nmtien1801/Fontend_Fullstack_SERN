@@ -25,18 +25,38 @@ class Login extends Component {
       valueLogin: event.target.value,
     });
   };
+
   setPassword = (event) => {
     this.setState({
       password: event.target.value,
     });
   };
+
   handleLogin = async () => {
     this.setState({
       errMessage: "",
     });
+
+    if (!this.state.valueLogin) {
+      toast.error("please enter your email or phone number");
+      this.setState({
+        isValidValueLogin: false,
+      });
+      return;
+    }
+    if (!this.state.password) {
+      toast.error("please enter your password");
+      this.setState({
+        isValidPassword: false,
+      });
+      return;
+    }
+
     let res = await handleLoginApi(this.state.valueLogin, this.state.password);
     if (res && +res.EC === 0) {
       toast.success(res.EM);
+
+      localStorage.setItem("JWT", res.DT.token); // cookies đã là string nên không dùng json.stringfy nữa
       this.props.userLoginSuccess(res.DT);
     } else {
       toast.error(res.EM);

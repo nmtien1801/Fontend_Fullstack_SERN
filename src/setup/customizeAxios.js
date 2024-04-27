@@ -67,7 +67,7 @@ instance.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      // not found
+      // not found get /post / delete /put
       case 404: {
         return Promise.reject(error);
       }

@@ -7,6 +7,8 @@ import "../../../styles/userManage.scss";
 import ModalDelete from "./modalDelete";
 import ModalUser from "./modalUser";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import "./user.scss"
 
 class UserManage extends Component {
   constructor(props) {
@@ -40,21 +42,23 @@ class UserManage extends Component {
     }
   };
 
-  async componentDidMount() {
-    await this.fetchUser();
+  componentDidMount() {
+    this.fetchUser();
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    // Kiểm tra nếu currentPage đã thay đổi so với giá trị trước đó
-    if (this.state.currentPage !== prevState.currentPage) {
-      // Gọi lại fetchUser khi currentPage thay đổi
-      await this.fetchUser();
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.currentPage !== this.state.currentPage ||
+      prevState.currentLimit !== this.state.currentLimit
+    ) {
+      this.fetchUser();
     }
   }
 
   handlePageClick = async (event) => {
     this.setState({
-      currentPage: +event.selected + 1, //đây là hàm bất đồng bộ chạy ss với await
+      // (prevState) => ({ currentPage: +event.selected + 1 }) //đây là hàm bất đồng bộ chạy ss với await
+      currentPage: +event.selected + 1,
     });
   };
 
@@ -71,7 +75,6 @@ class UserManage extends Component {
   };
 
   handleDeleteUser = (user) => {
-    alert("edit user");
     this.setState({
       dataModal: user,
       isShowModalDelete: true,
@@ -91,6 +94,7 @@ class UserManage extends Component {
       dataModalUser: {},
     });
     await this.fetchUser();
+    window.location.reload();
   };
 
   confirmDeleteUser = async () => {
@@ -116,6 +120,7 @@ class UserManage extends Component {
     this.setState({
       isShowModalDelete: false,
     });
+    window.location.reload();
   };
 
   render() {
@@ -254,10 +259,10 @@ class UserManage extends Component {
         />
 
         <ModalUser
-          show={isShowModalUser}
+          show={this.state.isShowModalUser}
           onHideModalUser={this.onHideModalUser}
-          action={actionModalUser}
-          dataModal={dataModalUser}
+          action={this.state.actionModalUser}
+          dataModal={this.state.dataModalUser}
         />
       </>
     );

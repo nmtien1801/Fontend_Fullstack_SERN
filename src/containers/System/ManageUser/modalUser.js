@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import _ from "lodash"; // react hook not merge state
 import "../../../styles/userManage.scss";
+import "./user.scss";
 
 const ModalUser = (props) => {
   // const [email, setEmail] = useState("");
@@ -156,6 +157,7 @@ const ModalUser = (props) => {
   };
 
   const handleCloseModalUser = () => {
+    console.log("props", props);
     props.onHideModalUser();
     setUserData(defaultUserData);
     setValidInput(validInputsDefault);
@@ -172,7 +174,7 @@ const ModalUser = (props) => {
         animation={true}
         className="modal-user"
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="modal-header-custom">
           <Modal.Title>
             {props.action === "CREATE" ? "CREATE NEW USER" : "EDIT USER"}
           </Modal.Title>
