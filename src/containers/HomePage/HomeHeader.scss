@@ -1,0 +1,142 @@
+.home-header-container {
+  width: 100%;
+  height: auto;
+  border: 1px solid red;
+  .home-header-content {
+    .left-content {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      .logo {
+        background: url("../../assets/images/logo.avif") center center no-repeat;
+        height: 80%;
+        width: 70%;
+      }
+      i {
+        // property khi bar sổ xuống
+        font-size: 25px;
+        color: grey;
+      }
+      cursor: pointer;
+    }
+    .center-content {
+      .child-content {
+        .subs-title {
+          font-weight: 800;
+          font-size: 17px;
+        }
+      }
+    }
+
+    .right-content {
+      .support {
+        padding-right: 15px;
+        cursor: pointer;
+        svg {
+          font-size: 15px;
+          margin-right: 5px;
+        }
+      }
+      .language-vn {
+        margin: 0 10px;
+        cursor: pointer;
+        &:active {
+          color: orange;
+        }
+      }
+      .language-en {
+        cursor: pointer;
+        &:active {
+          color: blue;
+        }
+      }
+    }
+  }
+}
+
+.home-header-banner {
+  background-image: linear-gradient(
+      rgba(52, 51, 51, 0.25),
+      rgba(222, 210, 210, 0)
+    ),
+    url("../../assets/images/background2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+  .content-up {
+    padding: 50px 0;
+    height: 50%;
+    .title1 {
+      text-align: center;
+      font-size: 30px;
+      color: white;
+      text-shadow: 1px 1px 1px black;
+      margin-bottom: 5px;
+    }
+    .title2 {
+      text-align: center;
+      font-size: 40px;
+      color: white;
+      text-shadow: 1px 1px 1px black;
+      margin-bottom: 38px;
+    }
+    .search {
+      border: 1px solid yellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      margin: 0 auto;
+      width: 469px;
+      border-radius: 30px;
+      background-color: #f7d800;
+      i {
+        margin: 0 5px;
+      }
+      input {
+        height: 30px;
+        width: 400px;
+        background: transparent; // set thẻ input cùng với div (tràn màu)
+        border: none;
+        outline: none; // gõ chữ kh hiện khung nữa
+      }
+    }
+  }
+  .content-below {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 50%;
+    background-image: linear-gradient(
+      rgba(175, 147, 147, 0.1),
+      rgba(248, 241, 241, 0.9),
+      rgba(255, 255, 255, 1)
+    );
+    .options {
+      .option-child {
+        text-align: center;
+        .icon-child {
+          background-color: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin: 0 auto;
+          padding: 5px;
+          color: #49bce2;
+          font-size: 20px;
+        }
+        .text-child {
+          font-size: 17px;
+          font-weight: 500;
+          cursor: pointer;
+          &:hover {
+            color: #49bce2;
+          }
+        }
+      }
+    }
+  }
+}

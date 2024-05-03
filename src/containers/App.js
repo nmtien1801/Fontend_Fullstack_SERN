@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import HomePage from "./HomePage/HomePage";
+import "@fortawesome/fontawesome-free/js/all.js";
 
 import {
   userIsAuthenticated,
@@ -61,6 +63,11 @@ class App extends Component {
                 <Route
                   path={path.SYSTEM}
                   component={userIsAuthenticated(System)}
+                />
+                <Route
+                  path={path.HOMEPAGE}
+                  // component={HomePage} : để kh check gì cả
+                  component={HomePage}
                 />
               </Switch>
             </span>
