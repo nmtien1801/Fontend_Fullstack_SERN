@@ -1,7 +1,6 @@
 .home-header-container {
   width: 100%;
   height: auto;
-  border: 1px solid red;
   .home-header-content {
     .left-content {
       display: flex;
@@ -123,6 +122,7 @@
     display: flex;
     justify-content: center;
     align-items: end;
+    padding-bottom: 10px;
     height: 50%;
     background-image: linear-gradient(
       rgba(175, 147, 147, 0.1),
