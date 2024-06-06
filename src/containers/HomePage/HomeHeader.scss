@@ -1,6 +1,12 @@
 .home-header-container {
   width: 100%;
   height: auto;
+  // search: sticker header css
+  // cố định header khi scroll
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10000;
   .home-header-content {
     .left-content {
       display: flex;
