@@ -3,6 +3,13 @@
   &.section-OutStandingDoctor {
     background-color: rgb(244, 239, 239);
   }
+  &.section-about {
+    height: 400px;
+    padding: 0 150px;
+    border-top: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
   .section-container {
     margin: 0 150px;
     display: flex;
@@ -128,6 +135,36 @@
   }
 }
 
-
 // home footer
-.home-footer{}
+.home-footer {
+  text-align: center;
+  padding-top: 8px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.section-about {
+  .section-about-header {
+    padding: 20px 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .section-about-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px; // khoảng cách giữa 2 phần tử thay cho magin, pading
+    .content-left {
+      width: 60%;
+    }
+    .content-right {
+      width: 40%;
+      p {
+        text-align: justify; // căn lề đều
+        font-style: italic; // chữ nghiêng
+        padding: 15px;
+      }
+    }
+  }
+}

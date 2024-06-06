@@ -10,8 +10,13 @@ class HomeFooter extends Component {
         <div className="home-footer">
           {/* search: html copyright */}
           <p>
-            &copy; 2024 NguyenMinhTien.{" "}
-            <a href="#">More information, please visit my youtobe channel</a>
+            &copy; 2024 NguyenMinhTien.
+            <a href="#">
+              More information, please visit my youtobe channel.
+              <a target="_blank" href="https://www.facebook.com/">
+                &#8594; Click here &#8592;
+              </a>
+            </a>
           </p>
         </div>
       </>
