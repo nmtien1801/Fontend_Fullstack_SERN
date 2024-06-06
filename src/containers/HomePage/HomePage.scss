@@ -1,0 +1,129 @@
+.section-share {
+  height: 330px;
+  &.section-OutStandingDoctor {
+    background-color: rgb(244, 239, 239);
+  }
+  .section-container {
+    margin: 0 150px;
+    display: flex;
+    flex-direction: column;
+
+    .section-header {
+      height: 60px;
+      margin-bottom: 30px;
+      padding-top: 30px;
+      .tittle-section {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .btn-section {
+        height: 38px;
+        text-transform: uppercase;
+        &:hover {
+          background-color: #f7d800;
+        }
+      }
+      display: flex;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .section-body {
+      .section-customize {
+        .bg-img {
+          //dùng div chèn ảnh phải viết url trong css
+          width: 290px;
+          height: 180px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-color: #eee;
+
+          &.bg-OutStandingDoctor {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.specialty-customize {
+  .bg-img {
+    //dùng div chèn ảnh phải viết url trong css
+    background: url("../../assets/images/Specialty/2.jpg");
+  }
+}
+.MedicalFacilities-customize {
+  .bg-img {
+    //dùng div chèn ảnh phải viết url trong css
+    background: url("../../assets/images/Specialty/1.jpg");
+  }
+}
+
+.OutStandingDoctor-customize {
+  .outer-bg {
+    display: flex;
+    justify-content: center;
+    .bg-img {
+      &.img1 {
+        //dùng div chèn ảnh phải viết url trong css
+        background: url("../../assets/images/Specialty/1.jpg");
+      }
+      &.img2 {
+        //dùng div chèn ảnh phải viết url trong css
+        background: url("../../assets/images/Specialty/3.jpg");
+      }
+      //dùng div chèn ảnh phải viết url trong css
+      background: url("../../assets/images/Specialty/1.jpg");
+    }
+  }
+}
+
+.handBook-customize {
+  .bg-img {
+    //dùng div chèn ảnh phải viết url trong css
+    background: url("../../assets/images/Specialty/1.jpg");
+  }
+}
+
+// ghi đè lên css của slick
+.slick-prev {
+  // position: relative !important;
+  left: -18px !important;
+  z-index: 1000;
+  height: 48px !important;
+  width: 44px !important;
+  background: green !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #d7d7d7 !important;
+  }
+
+  &:before {
+    // search: css content icon
+    font-family: "Font Awesome 5 Free";
+    content: "\f095"; // mã unicode của icon
+  }
+}
+
+.slick-next {
+  right: -1px !important;
+  z-index: 1000;
+  height: 48px !important;
+  width: 44px !important;
+  background: red !important;
+  border: 2px solid #d7d7d7 !important;
+
+  &:hover {
+    background: #d7d7d7 !important;
+  }
+
+  &:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f095"; // mã unicode của icon
+  }
+}
