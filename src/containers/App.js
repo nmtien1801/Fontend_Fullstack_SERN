@@ -20,7 +20,6 @@ import { path } from "../utils";
 import Home from "../routes/Home";
 // import Login from '../routes/Login';
 import Login from "./Auth/Login";
-import Header from "./Header/Header";
 import System from "../routes/System";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
@@ -53,7 +52,7 @@ class App extends Component {
         <Router history={history}>
           <div className="main-container">
             <ConfirmModal />
-            {this.props.isLoggedIn && <Header />}
+            {/* header chỉ hiển thị trong system -> chuyển header vào system */}
 
             <div className="content-container">
               {/* khi thẻ div bị over flow thì sẽ xuất hiện thanh cuộn */}
