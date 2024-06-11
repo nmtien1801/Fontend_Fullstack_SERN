@@ -38,7 +38,7 @@ class Header extends Component {
             className={
               language === LANGUAGE.VI ? "language-vi active" : "language-vi"
             }
-            onClick={() => this.handleChangeLanguage(LANGUAGE.VN)}
+            onClick={() => this.handleChangeLanguage(LANGUAGE.VI)}
           >
             VN
           </span>

@@ -11,11 +11,9 @@ class HomeFooter extends Component {
           {/* search: html copyright */}
           <p>
             &copy; 2024 NguyenMinhTien.
-            <a href="#">
-              More information, please visit my youtobe channel.
-              <a target="_blank" href="https://www.facebook.com/">
-                &#8594; Click here &#8592;
-              </a>
+            <a href="#">More information, please visit my youtobe channel.</a>
+            <a target="_blank" href="https://www.facebook.com/">
+              &#8594; Click here &#8592;
             </a>
           </p>
         </div>
