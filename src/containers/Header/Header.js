@@ -8,7 +8,7 @@ import "./Header.scss";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../services/userService";
 import { LANGUAGE } from "../../utils";
-
+import { FormattedMessage } from "react-intl";
 class Header extends Component {
   handleLogout = async () => {
     localStorage.removeItem("JWT"); // clear local storage
@@ -25,8 +25,8 @@ class Header extends Component {
     this.props.changeLanguageApp(language);
   };
   render() {
-    const { processLogout, language } = this.props;
-
+    const { processLogout, language, userInfo } = this.props;
+    console.log("check userInfo: ", userInfo);
     return (
       <div className="header-container">
         {/* thanh navigator */}
@@ -34,6 +34,10 @@ class Header extends Component {
           <Navigator menus={adminMenu} />
         </div>
         <div className="language">
+          <span className="welcome">
+            <FormattedMessage id="home-header.welcome" />,
+            {userInfo && userInfo.userName ? " " + userInfo.userName : ""}
+          </span>
           <span
             className={
               language === LANGUAGE.VI ? "language-vi active" : "language-vi"
@@ -71,6 +75,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    userInfo: state.user.userInfo,
     language: state.app.language,
   };
 };

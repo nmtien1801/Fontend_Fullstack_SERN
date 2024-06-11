@@ -8,7 +8,8 @@
     "select-doctor-better": "Choose a good doctor",
     "fee": "Examination package",
     "check-health": "General health examination",
-    "support": "Support"
+    "support": "Support",
+    "welcome": "welcome"
   },
   "banner": {
     "title1": "MEDICAL FOUNDATION",

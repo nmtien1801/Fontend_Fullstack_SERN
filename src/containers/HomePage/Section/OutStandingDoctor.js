@@ -84,7 +84,7 @@ class Specialty extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state);
+  // console.log("state", state);
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,

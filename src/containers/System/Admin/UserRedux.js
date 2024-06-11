@@ -12,11 +12,12 @@ class UserRedux extends Component {
   render() {
     return (
       <div className="user-redux-container">
-        {/* <div className="title">user redux</div>
+        <div className="title">user redux</div>
         <div className="user-redux-body">
-          <div>Thêm mới người dùng</div>
-        </div> */}
-        <div className="xie"></div>
+          <div className="container">
+            <div className="row"></div>
+          </div>
+        </div>
       </div>
     );
   }

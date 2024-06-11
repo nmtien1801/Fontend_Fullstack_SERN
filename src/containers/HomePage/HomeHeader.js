@@ -15,6 +15,7 @@ class HomeHeader extends Component {
   render() {
     // console.log("check props HomeHeader: ", this.props);
     let language = this.props.language;
+
     return (
       <>
         <div className="home-header-container p-md-1">
@@ -166,7 +167,7 @@ class HomeHeader extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state);
+  // console.log("state", state);
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
