@@ -35,6 +35,10 @@ const deleteUser = (user) => {
     // headers: { Authorization: "***" },
   });
 };
+
+const getAllCode = (inputData) => {
+  return customizeAxios.get(`/api/allCode?type=${inputData}`);
+};
 export {
   handleLoginApi,
   fetchAllUser,
@@ -43,4 +47,5 @@ export {
   updateCurrentUser,
   deleteUser,
   logoutUser,
+  getAllCode,
 };

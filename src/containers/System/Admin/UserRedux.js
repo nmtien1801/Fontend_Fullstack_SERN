@@ -2,20 +2,400 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserRedux.scss";
+import { toast } from "react-toastify";
+import _ from "lodash"; // react hook not merge state
+import { fetchGroup, getAllCode } from "../../../services/userService";
+import { LANGUAGE } from "../../../utils";
+
+let validInputsDefault = {
+  email: true,
+  phone: true,
+  userName: true,
+  password: true,
+  address: true,
+  sex: true,
+  group: true,
+};
+
+let defaultUserData = {
+  email: "",
+  phone: "",
+  userName: "",
+  password: "", //passWord
+  address: "",
+  sex: "",
+  groupID: "",
+};
+
 class UserRedux extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userData: defaultUserData,
+      validInput: validInputsDefault,
+      userGroup: [],
+      genderArr: [],
+      roleArr: [],
+      positionArr: [],
+    };
   }
-  componentDidMount() {}
+
+  componentDidMount() {
+    try {
+      this.getGroup();
+      this.fetchAllCode();
+    } catch (error) {
+      console.log("error user redux: ", error);
+    }
+  }
+
+  checkValidInput = () => {
+    // update user
+    // if (props.action === "UPDATE") return true;
+    // create user
+    this.setState({ validInput: validInputsDefault });
+    let arr = ["email", "phone", "password", "group"];
+    let check = true;
+    let regexEmail = /\S+@\S+\.\S+/;
+    let regexPhone = /0([0-9]{9})/;
+    let regexPassword = /^.{4,}$}/;
+    for (let i = 0; i < arr.length; i++) {
+      if (!this.userData[arr[i]]) {
+        let _validInput = _.cloneDeep(validInputsDefault);
+        _validInput[arr[i]] = false;
+        this.setState({ validInput: _validInput });
+
+        toast.error(`empty input ${arr[i]}`);
+        check = false;
+        break;
+      }
+      if (!regexEmail.test(this.userData["email"])) {
+        let _validInput = _.cloneDeep(validInputsDefault);
+        _validInput["email"] = false;
+        this.setState({ validInput: _validInput });
+
+        toast.error(`regexEmail error ${"email"}`);
+        check = false;
+        break;
+      }
+      if (!regexPhone.test(this.userData["phone"])) {
+        let _validInput = _.cloneDeep(validInputsDefault);
+        _validInput["phone"] = false;
+        this.setState({ validInput: _validInput });
+
+        toast.error(`regexPhone error ${"phone"}`);
+        check = false;
+        break;
+      }
+    }
+    return check;
+  };
+
+  getGroup = async () => {
+    let res = await fetchGroup();
+    if (res && res.EC === 0) {
+      this.setState({ userGroup: res.DT });
+
+      // gán mặc định group là select đầu tiên và kiểu là id cho trùng db
+      if (res.DT && res.DT.length > 0) {
+        let defaultGroup = res.DT;
+        this.setState({
+          userData: { ...defaultUserData, groupID: defaultGroup[0].id },
+        });
+      }
+    } else {
+      toast.error(res.EM);
+    }
+  };
+
+  fetchAllCode = async () => {
+    let resGender = await getAllCode("gender");
+    let resRole = await getAllCode("role");
+    let resPosition = await getAllCode("position");
+
+    if (resGender && resGender.EC === 0) {
+      this.setState({ genderArr: resGender.DT });
+    } else {
+      toast.error(resGender.EM);
+    }
+
+    if (resRole && resRole.EC === 0) {
+      this.setState({ roleArr: resRole.DT });
+    } else {
+      toast.error(resRole.EM);
+    }
+
+    if (resPosition && resPosition.EC === 0) {
+      this.setState({ positionArr: resPosition.DT });
+    } else {
+      toast.error(resPosition.EM);
+    }
+  };
+
+  handleOnChangeInput(value, name) {
+    let _userData = _.cloneDeep(this.state.userData); // sao chép lại userData
+    _userData[name] = value;
+
+    this.setState({
+      userData: _userData,
+    });
+  }
 
   render() {
+    let { validInput, userData, userGroup, genderArr, roleArr, positionArr } =
+      this.state;
+    let { language } = this.props;
     return (
       <div className="user-redux-container">
         <div className="title">user redux</div>
         <div className="user-redux-body">
           <div className="container">
-            <div className="row"></div>
+            <div className="content-body row ">
+              <div className="col-12">
+                <FormattedMessage id="manage-user.add"></FormattedMessage>
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <label>
+                  <FormattedMessage id="manage-user.email"></FormattedMessage>(
+                  <span className="red">*</span>)
+                </label>
+                <input
+                  className={
+                    validInput.email
+                      ? "form-control "
+                      : "form-control is-invalid"
+                  }
+                  type="email"
+                  value={userData.email}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "email");
+                  }}
+                />
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <label>
+                  <FormattedMessage id="manage-user.phone"></FormattedMessage>(
+                  <span className="red">*</span>)
+                </label>
+                <input
+                  className={
+                    validInput.phone
+                      ? "form-control "
+                      : "form-control is-invalid"
+                  }
+                  type="number"
+                  value={userData.phone}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "phone");
+                  }}
+                />
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <label>
+                  <FormattedMessage id="manage-user.userName"></FormattedMessage>
+                  (<span className="red">*</span>)
+                </label>
+                <input
+                  className={
+                    validInput.userName
+                      ? "form-control "
+                      : "form-control is-invalid"
+                  }
+                  type="text"
+                  value={userData.userName}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "userName");
+                  }}
+                />
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <>
+                  <label>
+                    <FormattedMessage id="manage-user.password"></FormattedMessage>{" "}
+                    (<span className="red">*</span>)
+                  </label>
+                  <input
+                    className={
+                      validInput.password
+                        ? "form-control "
+                        : "form-control is-invalid"
+                    }
+                    type="password"
+                    value={userData.password}
+                    onChange={(event) => {
+                      this.handleOnChangeInput(event.target.value, "password");
+                    }}
+                  />
+                </>
+              </div>
+              <div className="col-12 col-sm-12 form-group">
+                <label>
+                  <FormattedMessage id="manage-user.address"></FormattedMessage>
+                </label>
+                <input
+                  className={
+                    validInput.address
+                      ? "form-control "
+                      : "form-control is-invalid"
+                  }
+                  type="text"
+                  value={userData.address}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "address");
+                  }}
+                />
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <label htmlFor="GenderSelect">
+                  <FormattedMessage id="manage-user.gender"></FormattedMessage>
+                </label>
+                <select
+                  id="GenderSelect"
+                  className="form-select"
+                  value={userData.sex}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "sex");
+                  }}
+                >
+                  {genderArr &&
+                    genderArr.length > 0 &&
+                    genderArr.map((item, index) => {
+                      return (
+                        <option
+                          key={`gender-${index}`}
+                          value={
+                            language === LANGUAGE.VI
+                              ? item.valueVi
+                              : item.valueEn
+                          }
+                        >
+                          {language === LANGUAGE.VI
+                            ? item.valueVi
+                            : item.valueEn}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="col-12 col-sm-6 form-group">
+                <label htmlFor="GroupSelect">
+                  <FormattedMessage id="manage-user.group"></FormattedMessage> (
+                  <span className="red">*</span>)
+                </label>
+                <select
+                  id="GroupSelect"
+                  className={
+                    validInput.group ? "form-select" : "form-select is-invalid"
+                  }
+                  value={userData.group}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "group");
+                  }}
+                >
+                  {userGroup &&
+                    userGroup.length > 0 &&
+                    userGroup.map((item, index) => {
+                      return (
+                        <option key={`group-${index}`} value={item.id}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="col-4 col-sm-4 form-group">
+                <label htmlFor="PositionSelect">
+                  {" "}
+                  <FormattedMessage id="manage-user.position"></FormattedMessage>
+                </label>
+                <select
+                  id="PositionSelect"
+                  className="form-select"
+                  value={userData.sex}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "sex");
+                  }}
+                >
+                  {positionArr &&
+                    positionArr.length > 0 &&
+                    positionArr.map((item, index) => {
+                      return (
+                        <option
+                          key={`position-${index}`}
+                          value={
+                            language === LANGUAGE.VI
+                              ? item.valueVi
+                              : item.valueEn
+                          }
+                        >
+                          {language === LANGUAGE.VI
+                            ? item.valueVi
+                            : item.valueEn}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="col-4 col-sm-4 form-group">
+                <label htmlFor="RoleIDSelect">
+                  {" "}
+                  <FormattedMessage id="manage-user.role"></FormattedMessage>
+                </label>
+                <select
+                  id="RoleIDSelect"
+                  className="form-select"
+                  value={userData.sex}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "sex");
+                  }}
+                >
+                  {roleArr &&
+                    roleArr.length > 0 &&
+                    roleArr.map((item, index) => {
+                      return (
+                        <option
+                          key={`role-${index}`}
+                          value={
+                            language === LANGUAGE.VI
+                              ? item.valueVi
+                              : item.valueEn
+                          }
+                        >
+                          {language === LANGUAGE.VI
+                            ? item.valueVi
+                            : item.valueEn}
+                        </option>
+                      );
+                    })}
+                  {/* <option defaultValue={"Male"}>Male</option>
+                  <option value={"Female"}>Female</option>
+                  <option value={"Other"}>Other</option> */}
+                </select>
+              </div>
+              <div className="col-4 col-sm-4 form-group">
+                <label>
+                  {" "}
+                  <FormattedMessage id="manage-user.image"></FormattedMessage>
+                </label>
+                <input
+                  className={
+                    validInput.address
+                      ? "form-control "
+                      : "form-control is-invalid"
+                  }
+                  type="text"
+                  value={userData.address}
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event.target.value, "address");
+                  }}
+                />
+              </div>
+              <div className="col-12 col-sm-12">
+                <button className="btn btn-primary">
+                  <FormattedMessage id="manage-user.save"></FormattedMessage>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -24,7 +404,9 @@ class UserRedux extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    language: state.app.language,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
