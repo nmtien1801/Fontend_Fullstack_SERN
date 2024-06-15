@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import _ from "lodash"; // react hook not merge state
 import { fetchGroup, getAllCode } from "../../../services/userService";
 import { LANGUAGE } from "../../../utils";
+import * as actions from "../../../store/actions";
 
 let validInputsDefault = {
   email: true,
@@ -41,11 +42,35 @@ class UserRedux extends Component {
   }
 
   componentDidMount() {
+    this.props.getGenderStart();
+    this.props.getRoleStart();
+    this.props.getPositionStart();
+
     try {
       this.getGroup();
-      this.fetchAllCode();
     } catch (error) {
       console.log("error user redux: ", error);
+    }
+  }
+
+  // did update: so sánh hiện tại và trước đó
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.genderRedux !== this.props.genderRedux) {
+      this.setState({
+        genderArr: this.props.genderRedux,
+      });
+    }
+
+    if (prevProps.positionRedux !== this.props.positionRedux) {
+      this.setState({
+        positionArr: this.props.positionRedux,
+      });
+    }
+
+    if (prevProps.RoleRedux !== this.props.RoleRedux) {
+      this.setState({
+        roleArr: this.props.RoleRedux,
+      });
     }
   }
 
@@ -108,30 +133,6 @@ class UserRedux extends Component {
     }
   };
 
-  fetchAllCode = async () => {
-    let resGender = await getAllCode("gender");
-    let resRole = await getAllCode("role");
-    let resPosition = await getAllCode("position");
-
-    if (resGender && resGender.EC === 0) {
-      this.setState({ genderArr: resGender.DT });
-    } else {
-      toast.error(resGender.EM);
-    }
-
-    if (resRole && resRole.EC === 0) {
-      this.setState({ roleArr: resRole.DT });
-    } else {
-      toast.error(resRole.EM);
-    }
-
-    if (resPosition && resPosition.EC === 0) {
-      this.setState({ positionArr: resPosition.DT });
-    } else {
-      toast.error(resPosition.EM);
-    }
-  };
-
   handleOnChangeInput(value, name) {
     let _userData = _.cloneDeep(this.state.userData); // sao chép lại userData
     _userData[name] = value;
@@ -144,7 +145,7 @@ class UserRedux extends Component {
   render() {
     let { validInput, userData, userGroup, genderArr, roleArr, positionArr } =
       this.state;
-    let { language } = this.props;
+    let { language, genderRedux, RoleRedux, positionRedux } = this.props;
     return (
       <div className="user-redux-container">
         <div className="title">user redux</div>
@@ -305,15 +306,14 @@ class UserRedux extends Component {
               </div>
               <div className="col-4 col-sm-4 form-group">
                 <label htmlFor="PositionSelect">
-                  {" "}
                   <FormattedMessage id="manage-user.position"></FormattedMessage>
                 </label>
                 <select
                   id="PositionSelect"
                   className="form-select"
-                  value={userData.sex}
+                  value={userData.position}
                   onChange={(event) => {
-                    this.handleOnChangeInput(event.target.value, "sex");
+                    this.handleOnChangeInput(event.target.value, "position");
                   }}
                 >
                   {positionArr &&
@@ -344,9 +344,9 @@ class UserRedux extends Component {
                 <select
                   id="RoleIDSelect"
                   className="form-select"
-                  value={userData.sex}
+                  value={userData.role}
                   onChange={(event) => {
-                    this.handleOnChangeInput(event.target.value, "sex");
+                    this.handleOnChangeInput(event.target.value, "role");
                   }}
                 >
                   {roleArr &&
@@ -374,7 +374,6 @@ class UserRedux extends Component {
               </div>
               <div className="col-4 col-sm-4 form-group">
                 <label>
-                  {" "}
                   <FormattedMessage id="manage-user.image"></FormattedMessage>
                 </label>
                 <input
@@ -384,9 +383,9 @@ class UserRedux extends Component {
                       : "form-control is-invalid"
                   }
                   type="text"
-                  value={userData.address}
+                  value={userData.image}
                   onChange={(event) => {
-                    this.handleOnChangeInput(event.target.value, "address");
+                    this.handleOnChangeInput(event.target.value, "image");
                   }}
                 />
               </div>
@@ -406,11 +405,23 @@ class UserRedux extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    genderRedux: state.admin.genders,
+    RoleRedux: state.admin.roles,
+    positionRedux: state.admin.position,
+
+    isLoadingGender: state.admin.isLoadingGender,
+    isLoadingRoles: state.admin.isLoadingRoles,
+    isLoadingPosition: state.admin.isLoadingPosition,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    // changeLanguageApp: (language) => dispatch(actions.changeLanguage(language)),
+    getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    getRoleStart: () => dispatch(actions.fetchRoleStart()),
+    getPositionStart: () => dispatch(actions.fetchPositionStart()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
