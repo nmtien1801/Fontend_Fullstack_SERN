@@ -7,6 +7,8 @@ import _ from "lodash"; // react hook not merge state
 import { fetchGroup, getAllCode } from "../../../services/userService";
 import { LANGUAGE } from "../../../utils";
 import * as actions from "../../../store/actions";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
 let validInputsDefault = {
   email: true,
@@ -133,14 +135,30 @@ class UserRedux extends Component {
     }
   };
 
-  handleOnChangeInput(value, name) {
+  handleOnChangeInput = (value, name) => {
     let _userData = _.cloneDeep(this.state.userData); // sao chép lại userData
     _userData[name] = value;
 
     this.setState({
       userData: _userData,
     });
-  }
+  };
+
+  handleOnChangeImage = (event) => {
+    let data = event;
+    let file = data[0];
+    if (file) {
+      let objectURL = URL.createObjectURL(file);
+      this.setState({
+        userData: { ...this.state.userData, image: objectURL },
+      });
+    }
+  };
+
+  openPreviewImage = () => {
+    if (!this.state.userData.image) return;
+    this.setState({ isOpen: true });
+  };
 
   render() {
     let { validInput, userData, userGroup, genderArr, roleArr, positionArr } =
@@ -376,27 +394,53 @@ class UserRedux extends Component {
                 <label>
                   <FormattedMessage id="manage-user.image"></FormattedMessage>
                 </label>
-                <input
-                  className={
-                    validInput.address
-                      ? "form-control "
-                      : "form-control is-invalid"
-                  }
-                  type="text"
-                  value={userData.image}
-                  onChange={(event) => {
-                    this.handleOnChangeInput(event.target.value, "image");
-                  }}
-                />
+                <div className="preview-img-container">
+                  <input
+                    id="preview-img"
+                    hidden
+                    className={
+                      validInput.address
+                        ? "form-control "
+                        : "form-control is-invalid"
+                    }
+                    type="file"
+                    // value={userData.image}
+                    onChange={(event) => {
+                      this.handleOnChangeImage(event.target.files);
+                    }}
+                  />
+
+                  <label
+                    className="label-upload btn btn-secondary"
+                    htmlFor="preview-img"
+                  >
+                    Tải ảnh
+                    <i className="fas fa-upload"></i>
+                  </label>
+                  <div
+                    className="preview-image"
+                    style={{
+                      backgroundImage: `url(${this.state.userData.image})`,
+                    }}
+                    onClick={() => this.openPreviewImage()}
+                  ></div>
+                </div>
               </div>
               <div className="col-12 col-sm-12">
-                <button className="btn btn-primary">
+                <button className="btn btn-primary mt-1">
                   <FormattedMessage id="manage-user.save"></FormattedMessage>
                 </button>
               </div>
             </div>
           </div>
         </div>
+        {/* thư viện phóng to ảnh chọn khi click vào */}
+        {this.state.isOpen === true && (
+          <Lightbox
+            mainSrc={this.state.userData.image}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+          />
+        )}
       </div>
     );
   }

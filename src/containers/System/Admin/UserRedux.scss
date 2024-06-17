@@ -1,3 +1,15 @@
 .red {
   color: red;
 }
+
+.preview-img-container {
+  .preview-image {
+    height: 50px;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    background: center center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+}
