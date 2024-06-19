@@ -13,14 +13,14 @@ const adminReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_GENDER_START:
       state.isLoadingGender = true;
-      console.log("start: ", action);
+      // console.log("start: ", action);
       return {
         ...state,
       };
     case actionTypes.FETCH_GENDER_SUCCESS:
       state.isLoadingGender = false;
       state.genders = action.data;
-      console.log("success: ", action);
+      // console.log("success: ", action);
 
       return {
         ...state,
@@ -37,7 +37,7 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_POSITION_SUCCESS:
       state.isLoadingPosition = false;
       state.position = action.data;
-      console.log("success: ", action);
+      // console.log("success: ", action);
 
       return {
         ...state,
@@ -54,7 +54,7 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_ROLE_SUCCESS:
       state.isLoadingRoles = false;
       state.roles = action.data;
-      console.log("success: ", action);
+      // console.log("success: ", action);
 
       return {
         ...state,

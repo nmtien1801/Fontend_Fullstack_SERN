@@ -1,5 +1,6 @@
 import actionTypes from "./actionTypes";
-import { getAllCode } from "../../services/userService";
+import { getAllCode, createNewUser } from "../../services/userService";
+import { toast } from "react-toastify";
 
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -80,4 +81,30 @@ export const fetchRoleSuccess = (roleData) => ({
 
 export const fetchRoleFail = () => ({
   type: actionTypes.FETCH_ROLE_FAIL,
+});
+
+export const createNewUserRedux = (user) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await createNewUser(user);
+      if (res && res.EC === 0) {
+        dispatch(saveUserSuccess());
+        toast.success(res.EM);
+      } else {
+        dispatch(saveUserFail());
+        toast.success(res.EM);
+      }
+    } catch (error) {
+      dispatch(saveUserFail());
+      console.log("err: ", error);
+    }
+  };
+};
+
+export const saveUserSuccess = () => ({
+  type: actionTypes.SAVE_USER_SUCCESS,
+});
+
+export const saveUserFail = () => ({
+  type: actionTypes.SAVE_USER_FAIL,
 });

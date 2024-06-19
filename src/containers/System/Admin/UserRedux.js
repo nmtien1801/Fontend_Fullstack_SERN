@@ -17,7 +17,10 @@ let validInputsDefault = {
   password: true,
   address: true,
   sex: true,
-  group: true,
+  groupID: true,
+  position: true,
+  role: true,
+  avatar: true,
 };
 
 let defaultUserData = {
@@ -28,6 +31,9 @@ let defaultUserData = {
   address: "",
   sex: "",
   groupID: "",
+  position: "",
+  role: "",
+  avatar: "",
 };
 
 class UserRedux extends Component {
@@ -58,36 +64,48 @@ class UserRedux extends Component {
   // did update: so sánh hiện tại và trước đó
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.genderRedux !== this.props.genderRedux) {
+      let arrGender = this.props.genderRedux;
       this.setState({
-        genderArr: this.props.genderRedux,
+        genderArr: arrGender,
+        userData:
+          arrGender && arrGender.length > 0
+            ? { ...this.state.userData, sex: arrGender[0].key }
+            : { ...this.state.userData },
       });
     }
 
     if (prevProps.positionRedux !== this.props.positionRedux) {
+      let arrPosition = this.props.positionRedux;
       this.setState({
-        positionArr: this.props.positionRedux,
+        positionArr: arrPosition,
+        userData:
+          arrPosition && arrPosition.length > 0
+            ? { ...this.state.userData, position: arrPosition[0].key }
+            : { ...this.state.userData },
       });
     }
 
     if (prevProps.RoleRedux !== this.props.RoleRedux) {
+      let arrRole = this.props.RoleRedux;
       this.setState({
-        roleArr: this.props.RoleRedux,
+        roleArr: arrRole,
+        userData:
+          arrRole && arrRole.length > 0
+            ? { ...this.state.userData, role: arrRole[0].key }
+            : { ...this.state.userData },
       });
     }
   }
 
   checkValidInput = () => {
-    // update user
-    // if (props.action === "UPDATE") return true;
-    // create user
     this.setState({ validInput: validInputsDefault });
-    let arr = ["email", "phone", "password", "group"];
+    let arr = ["email", "phone", "password", "groupID"];
     let check = true;
     let regexEmail = /\S+@\S+\.\S+/;
     let regexPhone = /0([0-9]{9})/;
     let regexPassword = /^.{4,}$}/;
     for (let i = 0; i < arr.length; i++) {
-      if (!this.userData[arr[i]]) {
+      if (!this.state.userData[arr[i]]) {
         let _validInput = _.cloneDeep(validInputsDefault);
         _validInput[arr[i]] = false;
         this.setState({ validInput: _validInput });
@@ -96,7 +114,8 @@ class UserRedux extends Component {
         check = false;
         break;
       }
-      if (!regexEmail.test(this.userData["email"])) {
+
+      if (!regexEmail.test(this.state.userData["email"])) {
         let _validInput = _.cloneDeep(validInputsDefault);
         _validInput["email"] = false;
         this.setState({ validInput: _validInput });
@@ -105,7 +124,8 @@ class UserRedux extends Component {
         check = false;
         break;
       }
-      if (!regexPhone.test(this.userData["phone"])) {
+
+      if (!regexPhone.test(this.state.userData["phone"])) {
         let _validInput = _.cloneDeep(validInputsDefault);
         _validInput["phone"] = false;
         this.setState({ validInput: _validInput });
@@ -127,7 +147,7 @@ class UserRedux extends Component {
       if (res.DT && res.DT.length > 0) {
         let defaultGroup = res.DT;
         this.setState({
-          userData: { ...defaultUserData, groupID: defaultGroup[0].id },
+          userData: { ...this.state.userData, groupID: defaultGroup[0].id },
         });
       }
     } else {
@@ -150,14 +170,22 @@ class UserRedux extends Component {
     if (file) {
       let objectURL = URL.createObjectURL(file);
       this.setState({
-        userData: { ...this.state.userData, image: objectURL },
+        userData: { ...this.state.userData, avatar: objectURL },
       });
     }
   };
 
   openPreviewImage = () => {
-    if (!this.state.userData.image) return;
+    if (!this.state.userData.avatar) return;
     this.setState({ isOpen: true });
+  };
+
+  handleSaveUser = () => {
+    let valid = this.checkValidInput();
+    if (valid) {
+      let { userData } = this.state;
+      this.props.createNewUser(userData);
+    }
   };
 
   render() {
@@ -202,7 +230,7 @@ class UserRedux extends Component {
                       ? "form-control "
                       : "form-control is-invalid"
                   }
-                  type="number"
+                  type="text"
                   value={userData.phone}
                   onChange={(event) => {
                     this.handleOnChangeInput(event.target.value, "phone");
@@ -280,14 +308,7 @@ class UserRedux extends Component {
                     genderArr.length > 0 &&
                     genderArr.map((item, index) => {
                       return (
-                        <option
-                          key={`gender-${index}`}
-                          value={
-                            language === LANGUAGE.VI
-                              ? item.valueVi
-                              : item.valueEn
-                          }
-                        >
+                        <option key={`gender-${index}`} value={item.key}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
@@ -304,11 +325,13 @@ class UserRedux extends Component {
                 <select
                   id="GroupSelect"
                   className={
-                    validInput.group ? "form-select" : "form-select is-invalid"
+                    validInput.groupID
+                      ? "form-select"
+                      : "form-select is-invalid"
                   }
-                  value={userData.group}
+                  value={userData.groupID}
                   onChange={(event) => {
-                    this.handleOnChangeInput(event.target.value, "group");
+                    this.handleOnChangeInput(event.target.value, "groupID");
                   }}
                 >
                   {userGroup &&
@@ -338,14 +361,7 @@ class UserRedux extends Component {
                     positionArr.length > 0 &&
                     positionArr.map((item, index) => {
                       return (
-                        <option
-                          key={`position-${index}`}
-                          value={
-                            language === LANGUAGE.VI
-                              ? item.valueVi
-                              : item.valueEn
-                          }
-                        >
+                        <option key={`position-${index}`} value={item.key}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
@@ -356,7 +372,6 @@ class UserRedux extends Component {
               </div>
               <div className="col-4 col-sm-4 form-group">
                 <label htmlFor="RoleIDSelect">
-                  {" "}
                   <FormattedMessage id="manage-user.role"></FormattedMessage>
                 </label>
                 <select
@@ -371,23 +386,13 @@ class UserRedux extends Component {
                     roleArr.length > 0 &&
                     roleArr.map((item, index) => {
                       return (
-                        <option
-                          key={`role-${index}`}
-                          value={
-                            language === LANGUAGE.VI
-                              ? item.valueVi
-                              : item.valueEn
-                          }
-                        >
+                        <option key={`role-${index}`} value={item.key}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
                         </option>
                       );
                     })}
-                  {/* <option defaultValue={"Male"}>Male</option>
-                  <option value={"Female"}>Female</option>
-                  <option value={"Other"}>Other</option> */}
                 </select>
               </div>
               <div className="col-4 col-sm-4 form-group">
@@ -398,13 +403,13 @@ class UserRedux extends Component {
                   <input
                     id="preview-img"
                     hidden
-                    className={
-                      validInput.address
-                        ? "form-control "
-                        : "form-control is-invalid"
-                    }
+                    // className={
+                    //   validInput.avatar
+                    //     ? "form-control "
+                    //     : "form-control is-invalid"
+                    // }
                     type="file"
-                    // value={userData.image}
+                    // value={userData.avatar}
                     onChange={(event) => {
                       this.handleOnChangeImage(event.target.files);
                     }}
@@ -420,14 +425,19 @@ class UserRedux extends Component {
                   <div
                     className="preview-image"
                     style={{
-                      backgroundImage: `url(${this.state.userData.image})`,
+                      backgroundImage: `url(${this.state.userData.avatar})`,
                     }}
                     onClick={() => this.openPreviewImage()}
                   ></div>
                 </div>
               </div>
               <div className="col-12 col-sm-12">
-                <button className="btn btn-primary mt-1">
+                <button
+                  className="btn btn-primary mt-1"
+                  onClick={() => {
+                    this.handleSaveUser();
+                  }}
+                >
                   <FormattedMessage id="manage-user.save"></FormattedMessage>
                 </button>
               </div>
@@ -437,7 +447,7 @@ class UserRedux extends Component {
         {/* thư viện phóng to ảnh chọn khi click vào */}
         {this.state.isOpen === true && (
           <Lightbox
-            mainSrc={this.state.userData.image}
+            mainSrc={this.state.userData.avatar}
             onCloseRequest={() => this.setState({ isOpen: false })}
           />
         )}
@@ -465,6 +475,7 @@ const mapDispatchToProps = (dispatch) => {
     getGenderStart: () => dispatch(actions.fetchGenderStart()),
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
     getPositionStart: () => dispatch(actions.fetchPositionStart()),
+    createNewUser: (user) => dispatch(actions.createNewUserRedux(user)),
   };
 };
 
