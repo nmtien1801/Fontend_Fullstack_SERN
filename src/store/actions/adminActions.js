@@ -1,5 +1,9 @@
 import actionTypes from "./actionTypes";
-import { getAllCode, createNewUser } from "../../services/userService";
+import {
+  getAllCode,
+  createNewUser,
+  fetchAllUser,
+} from "../../services/userService";
 import { toast } from "react-toastify";
 
 // export const fetchGenderStart = () => ({
@@ -89,6 +93,8 @@ export const createNewUserRedux = (user) => {
       let res = await createNewUser(user);
       if (res && res.EC === 0) {
         dispatch(saveUserSuccess());
+        // load lại table khi thêm mới user
+        dispatch(fetchAllUserStart(1, 2));
         toast.success(res.EM);
       } else {
         dispatch(saveUserFail());
@@ -107,4 +113,29 @@ export const saveUserSuccess = () => ({
 
 export const saveUserFail = () => ({
   type: actionTypes.SAVE_USER_FAIL,
+});
+
+export const fetchAllUserStart = (currentPage, currentLimit) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await fetchAllUser(currentPage, currentLimit);
+      if (res && res.EC === 0) {
+        dispatch(fetchAllUserSuccess(res.DT));
+      } else {
+        dispatch(fetchAllUserFail());
+      }
+    } catch (error) {
+      dispatch(fetchAllUserFail());
+      console.log("err fetchAllUser: ", error);
+    }
+  };
+};
+
+export const fetchAllUserSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+  user: data,
+});
+
+export const fetchAllUserFail = () => ({
+  type: actionTypes.FETCH_ALL_USERS_FAIL,
 });

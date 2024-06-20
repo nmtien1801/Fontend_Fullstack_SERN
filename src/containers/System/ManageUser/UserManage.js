@@ -8,7 +8,7 @@ import ModalDelete from "./modalDelete";
 import ModalUser from "./modalUser";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import "./user.scss"
+import "./user.scss";
 
 class UserManage extends Component {
   constructor(props) {
@@ -167,7 +167,7 @@ class UserManage extends Component {
 
             <div className="user-body">
               <table className="table table-striped table-bordered table-hover">
-                <thead>
+                <thead className="green">
                   <tr>
                     <th scope="col">No</th>
                     <th scope="col">Id</th>
@@ -207,7 +207,7 @@ class UserManage extends Component {
                                   this.handleDeleteUser(item);
                                 }}
                               >
-                                <i className="fa fa-trash-o"></i>
+                                <i className="fas fa-trash-alt"></i>
                               </span>
                             </td>
                           </tr>

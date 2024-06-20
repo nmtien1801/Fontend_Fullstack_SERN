@@ -40,3 +40,17 @@ input[type="number"] {
     }
   }
 }
+
+.edit {
+  color: orange;
+  cursor: pointer;
+}
+.delete {
+  color: red;
+  cursor: pointer;
+}
+
+.green {
+  color: white;
+  background-color: rgb(12, 163, 80);
+}

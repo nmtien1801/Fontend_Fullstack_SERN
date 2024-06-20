@@ -9,6 +9,7 @@ import { LANGUAGE } from "../../../utils";
 import * as actions from "../../../store/actions";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import TableManageUser from "./TableManageUser";
 
 let validInputsDefault = {
   email: true,
@@ -185,7 +186,7 @@ class UserRedux extends Component {
     if (valid) {
       let { userData } = this.state;
       this.props.createNewUser(userData);
-    }
+    } else return;
   };
 
   render() {
@@ -433,7 +434,7 @@ class UserRedux extends Component {
               </div>
               <div className="col-12 col-sm-12">
                 <button
-                  className="btn btn-primary mt-1"
+                  className="btn btn-primary mt-1 mb-3"
                   onClick={() => {
                     this.handleSaveUser();
                   }}
@@ -442,8 +443,11 @@ class UserRedux extends Component {
                 </button>
               </div>
             </div>
+
+            <TableManageUser />
           </div>
         </div>
+
         {/* thư viện phóng to ảnh chọn khi click vào */}
         {this.state.isOpen === true && (
           <Lightbox

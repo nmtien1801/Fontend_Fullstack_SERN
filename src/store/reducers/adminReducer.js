@@ -7,6 +7,9 @@ const initialState = {
   genders: [],
   roles: [],
   position: [],
+
+  listUser: [],
+  totalPage: 1,
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -63,6 +66,20 @@ const adminReducer = (state = initialState, action) => {
       state.isLoadingRoles = false;
       state.roles = [];
       console.log("fail: ", action);
+
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_ALL_USERS_SUCCESS:
+      state.listUser = action.user.users;
+      state.totalPage = action.user.totalPage;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_USERS_FAIL:
+      state.listUser = [];
+      state.totalPage = 0;
 
       return {
         ...state,
