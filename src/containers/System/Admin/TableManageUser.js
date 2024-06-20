@@ -51,6 +51,14 @@ class UserManage extends Component {
     });
   };
 
+  handleDeleteUser = async (user) => {
+    try {
+      this.props.deleteUserRedux(user);
+    } catch (error) {
+      console.log(">>>error deleteUser tableManageUser: ", error);
+    }
+  };
+
   render() {
     let { currentPage, currentLimit, handlePageClick } = this.state;
     let { listUser, totalPage } = this.props;
@@ -91,9 +99,9 @@ class UserManage extends Component {
                         <span
                           title="Delete"
                           className="delete"
-                          //   onClick={() => {
-                          //     this.handleDeleteUser(item);
-                          //   }}
+                          onClick={() => {
+                            this.handleDeleteUser(item);
+                          }}
                         >
                           <i className="fas fa-trash-alt"></i>
                         </span>
@@ -152,6 +160,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllUserStart: (currentPage, currentLimit) =>
       dispatch(actions.fetchAllUserStart(currentPage, currentLimit)),
+    deleteUserRedux: (user) => dispatch(actions.deleteUserRedux(user)),
   };
 };
 

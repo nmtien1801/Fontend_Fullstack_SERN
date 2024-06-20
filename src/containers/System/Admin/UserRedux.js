@@ -96,6 +96,10 @@ class UserRedux extends Component {
             : { ...this.state.userData },
       });
     }
+    // xoá trắng input khi tạo xong
+    if (prevProps.listUser !== this.props.listUser) {
+      this.setState({ userData: defaultUserData });
+    }
   }
 
   checkValidInput = () => {
@@ -470,6 +474,9 @@ const mapStateToProps = (state) => {
     isLoadingGender: state.admin.isLoadingGender,
     isLoadingRoles: state.admin.isLoadingRoles,
     isLoadingPosition: state.admin.isLoadingPosition,
+
+    // xoá trắng khi tạo xong
+    listUser: state.admin.listUser,
   };
 };
 

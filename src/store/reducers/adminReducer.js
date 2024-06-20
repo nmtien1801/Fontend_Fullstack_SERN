@@ -72,7 +72,7 @@ const adminReducer = (state = initialState, action) => {
       };
 
     case actionTypes.FETCH_ALL_USERS_SUCCESS:
-      state.listUser = action.user.users;
+      state.listUser = action.user.users; // giảm dần: .reverse()
       state.totalPage = action.user.totalPage;
       return {
         ...state,

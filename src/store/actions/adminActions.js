@@ -3,6 +3,7 @@ import {
   getAllCode,
   createNewUser,
   fetchAllUser,
+  deleteUser,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -138,4 +139,32 @@ export const fetchAllUserSuccess = (data) => ({
 
 export const fetchAllUserFail = () => ({
   type: actionTypes.FETCH_ALL_USERS_FAIL,
+});
+
+export const deleteUserRedux = (user) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUser(user);
+      if (res && res.EC === 0) {
+        dispatch(deleteUserSuccess());
+        // load lại table khi thêm mới user
+        dispatch(fetchAllUserStart(1, 2));
+        toast.success(res.EM);
+      } else {
+        dispatch(deleteUserFail());
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      dispatch(deleteUserFail());
+      console.log("err: ", error);
+    }
+  };
+};
+
+export const deleteUserSuccess = () => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+});
+
+export const deleteUserFail = () => ({
+  type: actionTypes.DELETE_USER_FAIL,
 });
