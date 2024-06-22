@@ -4,6 +4,7 @@ import {
   createNewUser,
   fetchAllUser,
   deleteUser,
+  updateCurrentUser,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -93,27 +94,55 @@ export const createNewUserRedux = (user) => {
     try {
       let res = await createNewUser(user);
       if (res && res.EC === 0) {
-        dispatch(saveUserSuccess());
+        dispatch(createUserSuccess());
         // load lại table khi thêm mới user
         dispatch(fetchAllUserStart(1, 2));
         toast.success(res.EM);
       } else {
-        dispatch(saveUserFail());
+        dispatch(createUserFail());
         toast.success(res.EM);
       }
     } catch (error) {
-      dispatch(saveUserFail());
+      dispatch(createUserFail());
       console.log("err: ", error);
     }
   };
 };
 
-export const saveUserSuccess = () => ({
-  type: actionTypes.SAVE_USER_SUCCESS,
+export const createUserSuccess = () => ({
+  type: actionTypes.CREATE_USER_SUCCESS,
 });
 
-export const saveUserFail = () => ({
-  type: actionTypes.SAVE_USER_FAIL,
+export const createUserFail = () => ({
+  type: actionTypes.CREATE_USER_FAIL,
+});
+
+export const editUserRedux = (user) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await updateCurrentUser(user);
+      if (res && res.EC === 0) {
+        dispatch(editUserSuccess());
+        // load lại table khi thêm mới user
+        dispatch(fetchAllUserStart(1, 2));
+        toast.success(res.EM);
+      } else {
+        dispatch(editUserFail());
+        toast.success(res.EM);
+      }
+    } catch (error) {
+      dispatch(editUserFail());
+      console.log("err: ", error);
+    }
+  };
+};
+
+export const editUserSuccess = () => ({
+  type: actionTypes.EDIT_USER_SUCCESS,
+});
+
+export const editUserFail = () => ({
+  type: actionTypes.EDIT_USER_FAIL,
 });
 
 export const fetchAllUserStart = (currentPage, currentLimit) => {

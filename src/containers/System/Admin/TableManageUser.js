@@ -59,6 +59,11 @@ class UserManage extends Component {
     }
   };
 
+  handleEditUser = async (user) => {
+    console.log(">>>user edit: ", user);
+    this.props.handleEditUserFromParent(user);
+  };
+
   render() {
     let { currentPage, currentLimit, handlePageClick } = this.state;
     let { listUser, totalPage } = this.props;
@@ -90,9 +95,9 @@ class UserManage extends Component {
                         <span
                           title="Edit"
                           className="edit me-3"
-                          //   onClick={() => {
-                          //     this.handleEditUser(item);
-                          //   }}
+                          onClick={() => {
+                            this.handleEditUser(item);
+                          }}
                         >
                           <i className="fa fa-pencil"></i>
                         </span>

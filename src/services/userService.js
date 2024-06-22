@@ -39,6 +39,7 @@ const deleteUser = (user) => {
 const getAllCode = (inputData) => {
   return customizeAxios.get(`/api/allCode?type=${inputData}`);
 };
+
 export {
   handleLoginApi,
   fetchAllUser,
