@@ -5,9 +5,9 @@ import "./UserRedux.scss";
 import { toast } from "react-toastify";
 import _ from "lodash"; // react hook not merge state
 import { fetchGroup, getAllCode } from "../../../services/userService";
-import { LANGUAGE, CRUD_ACTION } from "../../../utils";
+import { LANGUAGE, CRUD_ACTION, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
-import Lightbox from "react-image-lightbox";
+import Lightbox from "react-image-lightbox"; // thư viện phóng to ảnh
 import "react-image-lightbox/style.css";
 import TableManageUser from "./TableManageUser";
 
@@ -48,6 +48,7 @@ class UserRedux extends Component {
       roleArr: [],
       positionArr: [],
       action: CRUD_ACTION.CREATE,
+      previewIMG: "",
     };
   }
 
@@ -102,6 +103,7 @@ class UserRedux extends Component {
       this.setState({
         userData: defaultUserData,
         groupID: this.state.userGroup[0],
+        previewIMG: "",
       });
     }
   }
@@ -173,19 +175,24 @@ class UserRedux extends Component {
     });
   };
 
-  handleOnChangeImage = (event) => {
+  // search : react PreviewImage
+  handleOnChangeImage = async (event) => {
     let data = event;
     let file = data[0];
     if (file) {
       let objectURL = URL.createObjectURL(file);
+      let base64 = await CommonUtils.getBase64(file);
+
+      // search: react read file to base 64 -> how to convert
       this.setState({
-        userData: { ...this.state.userData, avatar: objectURL },
+        userData: { ...this.state.userData, avatar: base64 },
+        previewIMG: objectURL,
       });
     }
   };
 
   openPreviewImage = () => {
-    if (!this.state.userData.avatar) return;
+    if (!this.state.previewIMG) return;
     this.setState({ isOpen: true });
   };
 
@@ -206,6 +213,12 @@ class UserRedux extends Component {
   };
 
   handleEditUserFromParent = (user) => {
+    //search : How to convert Buffer to base64 image in Node js
+    let imageBase64 = "";
+    if (user.image) {
+      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+    }
+
     this.setState({
       userData: {
         ...user,
@@ -213,6 +226,7 @@ class UserRedux extends Component {
         role: user.roleID,
         position: user.positionID,
       },
+      previewIMG: imageBase64,
       action: CRUD_ACTION.EDIT,
     });
   };
@@ -463,7 +477,7 @@ class UserRedux extends Component {
                   <div
                     className="preview-image"
                     style={{
-                      backgroundImage: `url(${this.state.userData.avatar})`,
+                      backgroundImage: `url(${this.state.previewIMG})`,
                     }}
                     onClick={() => this.openPreviewImage()}
                   ></div>
