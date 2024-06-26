@@ -40,6 +40,9 @@ const getAllCode = (inputData) => {
   return customizeAxios.get(`/api/allCode?type=${inputData}`);
 };
 
+const getTopDoctorHome = (limit) => {
+  return customizeAxios.get(`/api/top-doctor-home?limit=${limit}`);
+};
 export {
   handleLoginApi,
   fetchAllUser,
@@ -49,4 +52,5 @@ export {
   deleteUser,
   logoutUser,
   getAllCode,
+  getTopDoctorHome,
 };

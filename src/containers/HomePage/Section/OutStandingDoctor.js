@@ -3,9 +3,34 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
+import * as actions from "../../../store/actions";
+import { LANGUAGE } from "../../../utils/constant";
 
 class Specialty extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataDoctor: [],
+    };
+  }
+  componentDidMount() {
+    this.props.loadTopDoctor();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.topDoctor !== this.props.topDoctor) {
+      this.setState({
+        dataDoctor: this.props.topDoctor,
+      });
+    }
+  }
+
   render() {
+    let { language } = this.props;
+    let { dataDoctor } = this.state;
+    console.log("dataDoctor", dataDoctor);
+    // vì dataDoctor có ít phần tử nên vỡ layout, cần phải duplicate data
+    dataDoctor = dataDoctor.concat(dataDoctor).concat(dataDoctor);
     return (
       <>
         <div className="section-share section-OutStandingDoctor">
@@ -19,61 +44,40 @@ class Specialty extends Component {
 
             <div className="section-body">
               <Slider {...this.props.settings}>
-                <div className="section-customize OutStandingDoctor-customize">
-                  {/* dùng div chèn ảnh phải set height và width */}
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor img1"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
-                <div className="section-customize OutStandingDoctor-customize">
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor img2"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
-                <div className="section-customize OutStandingDoctor-customize">
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
-                <div className="section-customize OutStandingDoctor-customize">
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
-                <div className="section-customize OutStandingDoctor-customize">
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
-                <div className="section-customize OutStandingDoctor-customize">
-                  <div className="outer-bg">
-                    <div className="bg-img bg-OutStandingDoctor"> </div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Giáo sư, tiến sĩ </div>
-                    <div>Cơ xương khớp</div>
-                  </div>
-                </div>
+                {dataDoctor &&
+                  dataDoctor.length > 0 &&
+                  dataDoctor.map((item, index) => {
+                    //search : How to convert Buffer to base64 image in Node js
+                    let imageBase64 = "";
+                    if (item.image) {
+                      imageBase64 = new Buffer(item.image, "base64").toString(
+                        "binary"
+                      );
+                    }
+                    let nameVi = `${item.positionData.valueVi},${item.userName}`;
+                    let nameEn = `${item.positionData.valueEn},${item.userName}`;
+                    return (
+                      <div
+                        key={`doctor-${index}`}
+                        className="section-customize OutStandingDoctor-customize"
+                      >
+                        <div className="outer-bg">
+                          <div
+                            className="bg-img bg-OutStandingDoctor"
+                            style={{
+                              backgroundImage: `url(${imageBase64})`,
+                            }}
+                          ></div>
+                        </div>
+                        <div className="position text-center">
+                          <div>
+                            {language === LANGUAGE.VI ? nameVi : nameEn}
+                          </div>
+                          <div>cơ xương khớp</div>
+                        </div>
+                      </div>
+                    );
+                  })}
               </Slider>
             </div>
           </div>
@@ -88,11 +92,14 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    topDoctor: state.admin.topDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadTopDoctor: () => dispatch(actions.fetchTopDoctor()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Specialty);

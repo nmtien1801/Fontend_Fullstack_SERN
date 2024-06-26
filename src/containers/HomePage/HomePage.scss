@@ -75,16 +75,9 @@
     display: flex;
     justify-content: center;
     .bg-img {
-      &.img1 {
-        //dùng div chèn ảnh phải viết url trong css
-        background: url("../../assets/images/Specialty/1.jpg");
-      }
-      &.img2 {
-        //dùng div chèn ảnh phải viết url trong css
-        background: url("../../assets/images/Specialty/3.jpg");
-      }
       //dùng div chèn ảnh phải viết url trong css
-      background: url("../../assets/images/Specialty/1.jpg");
+      // background: url("../../assets/images/Specialty/1.jpg");
+      
     }
   }
 }

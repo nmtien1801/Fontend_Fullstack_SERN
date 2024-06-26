@@ -72,7 +72,7 @@ class UserRedux extends Component {
         genderArr: arrGender,
         userData:
           arrGender && arrGender.length > 0
-            ? { ...this.state.userData, sex: arrGender[0].key }
+            ? { ...this.state.userData, sex: arrGender[0].keyMap }
             : { ...this.state.userData },
       });
     }
@@ -83,7 +83,7 @@ class UserRedux extends Component {
         positionArr: arrPosition,
         userData:
           arrPosition && arrPosition.length > 0
-            ? { ...this.state.userData, position: arrPosition[0].key }
+            ? { ...this.state.userData, position: arrPosition[0].keyMap }
             : { ...this.state.userData },
       });
     }
@@ -94,15 +94,20 @@ class UserRedux extends Component {
         roleArr: arrRole,
         userData:
           arrRole && arrRole.length > 0
-            ? { ...this.state.userData, role: arrRole[0].key }
+            ? { ...this.state.userData, role: arrRole[0].keyMap }
             : { ...this.state.userData },
       });
     }
     // xoá trắng input khi tạo xong, LƯU Ý : cần reset lại các [] khi lưu
     if (prevProps.listUser !== this.props.listUser) {
       this.setState({
-        userData: defaultUserData,
-        groupID: this.state.userGroup[0],
+        userData: {
+          ...defaultUserData,
+          groupID: this.state.userGroup[0].id,
+          sex: this.state.genderArr[0].keyMap,
+          position: this.state.positionArr[0].keyMap,
+          role: this.state.roleArr[0].keyMap,
+        },
         previewIMG: "",
       });
     }
@@ -181,7 +186,7 @@ class UserRedux extends Component {
     let file = data[0];
     if (file) {
       let objectURL = URL.createObjectURL(file);
-      let base64 = await CommonUtils.getBase64(file);
+      let base64 = await CommonUtils.getBase64(file); // chuyển file ảnh sang base64 (blob) để lưu db
 
       // search: react read file to base 64 -> how to convert
       this.setState({
@@ -206,28 +211,31 @@ class UserRedux extends Component {
       }
       // edit user
       if (this.state.action === CRUD_ACTION.EDIT) {
-        console.log("userData: ", userData);
         this.props.editUserRedux(userData);
       }
+      this.setState({ action: CRUD_ACTION.CREATE });
     } else return;
   };
 
   handleEditUserFromParent = (user) => {
     //search : How to convert Buffer to base64 image in Node js
+    // chuyển sang base64 từ db chuyền lên (buffer)
     let imageBase64 = "";
     if (user.image) {
-      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+      imageBase64 = Buffer.from(user.image, "base64").toString("binary"); // chuyển từ base64 sang Blob
     }
 
     this.setState({
       userData: {
         ...user,
+        avatar: imageBase64, // lưu file base64 xuống lại db
         password: "hash code",
         role: user.roleID,
         position: user.positionID,
       },
       previewIMG: imageBase64,
       action: CRUD_ACTION.EDIT,
+      validInput: validInputsDefault, // xoá trắng input khi edit
     });
   };
 
@@ -240,6 +248,7 @@ class UserRedux extends Component {
       roleArr,
       positionArr,
       action,
+      previewIMG,
     } = this.state;
     let { language, genderRedux, RoleRedux, positionRedux } = this.props;
     return (
@@ -360,7 +369,7 @@ class UserRedux extends Component {
                     genderArr.length > 0 &&
                     genderArr.map((item, index) => {
                       return (
-                        <option key={`gender-${index}`} value={item.key}>
+                        <option key={`gender-${index}`} value={item.keyMap}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
@@ -413,7 +422,7 @@ class UserRedux extends Component {
                     positionArr.length > 0 &&
                     positionArr.map((item, index) => {
                       return (
-                        <option key={`position-${index}`} value={item.key}>
+                        <option key={`position-${index}`} value={item.keyMap}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
@@ -438,7 +447,7 @@ class UserRedux extends Component {
                     roleArr.length > 0 &&
                     roleArr.map((item, index) => {
                       return (
-                        <option key={`role-${index}`} value={item.key}>
+                        <option key={`role-${index}`} value={item.keyMap}>
                           {language === LANGUAGE.VI
                             ? item.valueVi
                             : item.valueEn}
@@ -455,13 +464,7 @@ class UserRedux extends Component {
                   <input
                     id="preview-img"
                     hidden
-                    // className={
-                    //   validInput.avatar
-                    //     ? "form-control "
-                    //     : "form-control is-invalid"
-                    // }
                     type="file"
-                    // value={userData.avatar}
                     onChange={(event) => {
                       this.handleOnChangeImage(event.target.files);
                     }}
@@ -477,7 +480,7 @@ class UserRedux extends Component {
                   <div
                     className="preview-image"
                     style={{
-                      backgroundImage: `url(${this.state.previewIMG})`,
+                      backgroundImage: `url(${previewIMG})`,
                     }}
                     onClick={() => this.openPreviewImage()}
                   ></div>
@@ -513,7 +516,7 @@ class UserRedux extends Component {
         {/* thư viện phóng to ảnh chọn khi click vào */}
         {this.state.isOpen === true && (
           <Lightbox
-            mainSrc={this.state.userData.avatar}
+            mainSrc={this.state.previewIMG}
             onCloseRequest={() => this.setState({ isOpen: false })}
           />
         )}

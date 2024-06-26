@@ -10,6 +10,8 @@ const initialState = {
 
   listUser: [],
   totalPage: 1,
+
+  topDoctor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -85,6 +87,16 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
 
+    case actionTypes.FETCH_TOP_DOCTOR_SUCCESS:
+      state.topDoctor = action.dataDoctor;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_TOP_DOCTOR_FAIL:
+      state.topDoctor = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }
