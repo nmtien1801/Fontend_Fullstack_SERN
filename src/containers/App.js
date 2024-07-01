@@ -65,6 +65,7 @@ class App extends Component {
                   />
                   <Route
                     path={path.SYSTEM}
+                    // các router system gộp chung lại tại đây
                     component={userIsAuthenticated(System)}
                   />
                   <Route

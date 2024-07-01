@@ -43,6 +43,14 @@ const getAllCode = (inputData) => {
 const getTopDoctorHome = (limit) => {
   return customizeAxios.get(`/api/top-doctor-home?limit=${limit}`);
 };
+
+const getAllDoctor = () => {
+  return customizeAxios.get(`/api/get-all-doctor`);
+};
+const saveDetailDoctor = (data) => {
+  return customizeAxios.post(`/api/save-info-doctor`, data);
+};
+
 export {
   handleLoginApi,
   fetchAllUser,
@@ -53,4 +61,6 @@ export {
   logoutUser,
   getAllCode,
   getTopDoctorHome,
+  getAllDoctor,
+  saveDetailDoctor,
 };

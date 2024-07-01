@@ -12,6 +12,7 @@ const initialState = {
   totalPage: 1,
 
   topDoctor: [],
+  allDoctor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -97,6 +98,18 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
+    case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+      state.allDoctor = action.dataDoctor;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_FAIL:
+      state.allDoctor = [];
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

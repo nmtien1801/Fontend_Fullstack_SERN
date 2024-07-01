@@ -1,0 +1,26 @@
+.manage-doctor-container {
+  margin: 0 15px;
+  .manage-doctor-title {
+    text-align: center;
+    font-size: 20px;
+    margin: 15px 0;
+    text-transform: uppercase;
+    font-weight: 490;
+  }
+  .more-info {
+    .content-left {
+    }
+    .content-right {
+      padding-bottom: 15px;
+    }
+  }
+  .manage-doctor-editor {
+  }
+  .save-content-doctor {
+    cursor: pointer;
+    margin: 10px 0;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
