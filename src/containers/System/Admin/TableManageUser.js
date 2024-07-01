@@ -5,11 +5,24 @@ import { fetchAllUser, deleteUser } from "../../../services/userService";
 import ReactPaginate from "react-paginate";
 import "../../../styles/userManage.scss";
 import * as actions from "../../../store/actions";
-// import ModalDelete from "./modalDelete";
-// import ModalUser from "./modalUser";
+
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 // import "./user.scss";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+
+// Register plugins if required
+// MdEditor.use(YOUR_PLUGINS_HERE);
+
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+// Finish!
+function handleEditorChange({ html, text }) {
+  console.log("handleEditorChange", html, text);
+}
 
 class UserManage extends Component {
   constructor(props) {
@@ -124,6 +137,11 @@ class UserManage extends Component {
             )}
           </tbody>
         </table>
+        <MdEditor
+          style={{ height: "500px" }}
+          renderHTML={(text) => mdParser.render(text)}
+          onChange={handleEditorChange}
+        />
 
         {totalPage > 0 && (
           <div className="user-footer">

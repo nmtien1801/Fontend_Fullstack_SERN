@@ -17,7 +17,7 @@
 
     .section-header {
       height: 60px;
-      margin-bottom: 30px;
+      margin-bottom: 45px;
       padding-top: 30px;
       .tittle-section {
         font-size: 22px;
@@ -77,7 +77,6 @@
     .bg-img {
       //dùng div chèn ảnh phải viết url trong css
       // background: url("../../assets/images/Specialty/1.jpg");
-      
     }
   }
 }
@@ -126,6 +125,10 @@
     font-family: "Font Awesome 5 Free";
     content: "\f095"; // mã unicode của icon
   }
+}
+
+.slick-disabled {
+  display: none !important;
 }
 
 // home footer

@@ -36,9 +36,11 @@ class Specialty extends Component {
         <div className="section-share section-OutStandingDoctor">
           <div className="section-container">
             <div className="section-header">
-              <span className="tittle-section">Bác sĩ nổi bật tuần qua</span>
+              <span className="tittle-section">
+                <FormattedMessage id={"homePage.outStanding-doctor"} />
+              </span>
               <button type="button" className="btn-section btn btn-secondary">
-                Xem thêm
+                <FormattedMessage id={"homePage.more-info"} />
               </button>
             </div>
 

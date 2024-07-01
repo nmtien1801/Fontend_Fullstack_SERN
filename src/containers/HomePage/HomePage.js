@@ -11,11 +11,12 @@ import "slick-carousel/slick/slick-theme.css";
 import HandBook from "./Section/HandBook";
 import About from "./Section/About";
 import HomeFooter from "./HomeFooter";
+import { after } from "lodash";
 class HomePage extends Component {
   render() {
     let settings = {
       dots: false,
-      infinite: true,
+      infinite: false, // mũi tên đầu / cuối + viết đè css: slick-disabled
       speed: 500,
       slidesToShow: 4, // số lượng slide hiển thị
       slidesToScroll: 1, // số lượng slide di chuyển
