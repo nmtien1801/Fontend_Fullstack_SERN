@@ -1,18 +1,25 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom"; // điều hướng khi click vào section - giống history.push
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
 import * as actions from "../../../store/actions";
 import { LANGUAGE } from "../../../utils/constant";
 
-class Specialty extends Component {
+class OutStandingDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataDoctor: [],
     };
   }
+
+  handleViewDetailDoctor = (doctor) => {
+    // search: How to get parameter value from query string?
+    // search: react router navigate
+    return this.props.history.push(`/detail-doctor/${doctor.id}`);
+  };
+
   componentDidMount() {
     this.props.loadTopDoctor();
   }
@@ -29,6 +36,7 @@ class Specialty extends Component {
     let { language } = this.props;
     let { dataDoctor } = this.state;
     console.log("dataDoctor", dataDoctor);
+    // bể layout khi dùng npm băng chuyền
     // vì dataDoctor có ít phần tử nên vỡ layout, cần phải duplicate data
     dataDoctor = dataDoctor.concat(dataDoctor).concat(dataDoctor);
     return (
@@ -62,6 +70,9 @@ class Specialty extends Component {
                       <div
                         key={`doctor-${index}`}
                         className="section-customize OutStandingDoctor-customize"
+                        onClick={() => {
+                          this.handleViewDetailDoctor(item);
+                        }}
                       >
                         <div className="outer-bg">
                           <div
@@ -104,4 +115,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor)
+);

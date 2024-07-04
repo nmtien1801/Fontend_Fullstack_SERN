@@ -44,7 +44,10 @@ class ManageDoctor extends Component {
   };
 
   handleSaveContentMarkdown = () => {
-    console.log("state: ", this.state);
+    this.props.saveDetailDoctor({
+      ...this.state,
+      doctorID: this.state.selectedOption.value,
+    });
   };
 
   handleChange = (selectedOption) => {
@@ -138,6 +141,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
+    saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
   };
 };
 
