@@ -13,7 +13,7 @@ import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import "./ManageDoctor.scss";
 import Select from "react-select";
-import { LANGUAGE } from "../../../utils";
+import { CRUD_ACTION, LANGUAGE } from "../../../utils";
 import { getDetailInfoDoctor } from "../../../services/userService";
 
 const options = [
@@ -46,9 +46,12 @@ class ManageDoctor extends Component {
   };
 
   handleSaveContentMarkdown = () => {
+    let { hasOldData } = this.state;
+
     this.props.saveDetailDoctor({
       ...this.state,
       doctorID: this.state.selectedOption.value,
+      action: hasOldData === false ? CRUD_ACTION.CREATE : CRUD_ACTION.EDIT,
     });
   };
 
@@ -61,8 +64,8 @@ class ManageDoctor extends Component {
     if (res && res.EC === 0 && res.DT && res.DT.Markdown) {
       let markdown = res.DT.Markdown;
       this.setState({
-        contentMarkdown: markdown.contentHTML,
-        contentHTML: markdown.contentMarkdown,
+        contentMarkdown: markdown.contentMarkdown,
+        contentHTML: markdown.contentHTML,
         description: markdown.description,
         hasOldData: true,
       });

@@ -50,6 +50,8 @@ class DetailDoctor extends Component {
           <div className="intro-doctor">
             <div
               // chèn ảnh từ BE
+              //![]()
+              //![img](https://github.com/....jpg?raw=true)
               className="content-left"
               style={{
                 backgroundImage: `url(${
@@ -75,7 +77,13 @@ class DetailDoctor extends Component {
             {detailDoctor &&
               detailDoctor.Markdown &&
               detailDoctor.Markdown.contentHTML && (
-                <div>{detailDoctor.Markdown.contentHTML}</div>
+                //search: react html dangerous
+                // chuyển html thành dạng text từ markdown
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: detailDoctor.Markdown.contentHTML,
+                  }}
+                ></div>
               )}
           </div>
           <div className="comment-doctor"></div>

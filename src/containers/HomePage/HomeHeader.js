@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom"; // điều hướng khi click vào home - giống history.push
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
@@ -11,7 +11,9 @@ class HomeHeader extends Component {
     this.props.changeLanguageApp(language);
     // search: fire redux event action
   };
-
+  returnToHome = () => {
+    if (this.props.history) return this.props.history.push(`/home`); //  điều hướng khi click vào home - giống history.push
+  };
   render() {
     // console.log("check props HomeHeader: ", this.props);
     let language = this.props.language;
@@ -22,7 +24,10 @@ class HomeHeader extends Component {
           <div className="home-header-content row ">
             <div className="left-content col-md-2">
               <i className="fa fa-bars" aria-hidden="true"></i>
-              <div className="logo ms-md-2"></div>
+              <div
+                className="logo ms-md-2"
+                onClick={() => this.returnToHome()}
+              ></div>
             </div>
             <div className="center-content col-md-8 row">
               <div className="child-content col-md-3">
@@ -184,4 +189,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);
