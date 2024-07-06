@@ -14,6 +14,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import "./ManageDoctor.scss";
 import Select from "react-select";
 import { LANGUAGE } from "../../../utils";
+import { getDetailInfoDoctor } from "../../../services/userService";
 
 const options = [
   { value: "chocolate", label: "Chocolate" },
@@ -29,9 +30,10 @@ class ManageDoctor extends Component {
     this.state = {
       contentMarkdown: "",
       contentHTML: "",
-      selectedOption: "",
+      selectedOption: "", // biến chứa chọn trong select
       description: "",
       allDoctor: [],
+      hasOldData: false, // đã có dữ liệu hay chưa
     };
   }
 
@@ -50,8 +52,28 @@ class ManageDoctor extends Component {
     });
   };
 
-  handleChange = (selectedOption) => {
+  handleChangeSelect = async (selectedOption) => {
+    // search: react-markdown-editor-lite set default value
     this.setState({ selectedOption });
+
+    let res = await getDetailInfoDoctor(selectedOption.value);
+    console.log("res: ", res);
+    if (res && res.EC === 0 && res.DT && res.DT.Markdown) {
+      let markdown = res.DT.Markdown;
+      this.setState({
+        contentMarkdown: markdown.contentHTML,
+        contentHTML: markdown.contentMarkdown,
+        description: markdown.description,
+        hasOldData: true,
+      });
+    } else {
+      this.setState({
+        contentMarkdown: "",
+        contentHTML: "",
+        description: "",
+        hasOldData: false,
+      });
+    }
   };
   handleOnChangeDesc = (e) => {
     this.setState({ description: e.target.value });
@@ -89,6 +111,7 @@ class ManageDoctor extends Component {
   }
 
   render() {
+    let { hasOldData } = this.state;
     return (
       <>
         <div className="manage-doctor-container">
@@ -98,7 +121,7 @@ class ManageDoctor extends Component {
               <label>Chọn bác sĩ: </label>
               <Select
                 value={this.state.selectedOption}
-                onChange={this.handleChange}
+                onChange={this.handleChangeSelect}
                 options={this.state.allDoctor}
               />
             </div>
@@ -117,13 +140,22 @@ class ManageDoctor extends Component {
               style={{ height: "500px" }}
               renderHTML={(text) => mdParser.render(text)}
               onChange={this.handleEditorChange} // chuyền props không cần dùng arrow function
+              value={this.state.contentMarkdown}
             />
           </div>
           <button
-            className="btn btn-warning save-content-doctor"
+            className={
+              hasOldData === true
+                ? "btn btn-warning save-content-doctor"
+                : "btn btn-primary create-content-doctor"
+            }
             onClick={() => this.handleSaveContentMarkdown()}
           >
-            Lưu thông tin
+            {hasOldData === true ? (
+              <span>lưu thông tin</span>
+            ) : (
+              <span>Tạo thông tin</span>
+            )}
           </button>
         </div>
       </>

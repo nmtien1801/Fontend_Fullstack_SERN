@@ -24,3 +24,11 @@
     }
   }
 }
+
+.create-content-doctor {
+  cursor: pointer;
+  margin: 10px 0;
+  &:hover {
+    opacity: 0.9;
+  }
+}

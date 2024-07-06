@@ -5,19 +5,83 @@ import { toast } from "react-toastify";
 import * as actions from "../../../store/actions";
 import { LANGUAGE } from "../../../utils/constant";
 import { Redirect } from "react-router-dom"; // điều hướng khi click vào secsion
+import HomeHeader from "../../HomePage/HomeHeader";
+import "./DetailDoctor.scss";
+import { getDetailInfoDoctor } from "../../../services/userService";
 
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      detailDoctor: {},
+    };
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    // console.log("id: ", this.props.params.id);
+    // lấy id phía sau ?
+    if (this.props && this.props.match.params && this.props.match.params.id) {
+      let res = await getDetailInfoDoctor(this.props.match.params.id);
+      console.log("res: ", res);
+      if (res && res.EC === 0) {
+        this.setState({
+          detailDoctor: res.DT,
+        });
+      }
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    return <>detail doctor</>;
+    console.log("state: ", this.state);
+    let { detailDoctor } = this.state;
+    let { language } = this.props;
+    let nameVi = "",
+      nameEn = "";
+    if (detailDoctor && detailDoctor.positionData) {
+      nameVi = `${detailDoctor.positionData.valueVi} , ${detailDoctor.userName}`;
+      nameEn = `${detailDoctor.positionData.valueEn} , ${detailDoctor.userName}`;
+    }
+    return (
+      <>
+        <HomeHeader isShowBanner={false} />
+        <div className="doctor-detail-container">
+          <div className="intro-doctor">
+            <div
+              // chèn ảnh từ BE
+              className="content-left"
+              style={{
+                backgroundImage: `url(${
+                  detailDoctor && detailDoctor.image ? detailDoctor.image : ""
+                })`,
+              }}
+            ></div>
+            <div className="content-right">
+              <div className="up">
+                {language === LANGUAGE.VI ? nameVi : nameEn}
+              </div>
+              <div className="down">
+                {detailDoctor &&
+                  detailDoctor.Markdown &&
+                  detailDoctor.Markdown.description && (
+                    <span>{detailDoctor.Markdown.description}</span>
+                  )}
+              </div>
+            </div>
+          </div>
+          <div className="schedule-doctor"></div>
+          <div className="detail-info-doctor">
+            {detailDoctor &&
+              detailDoctor.Markdown &&
+              detailDoctor.Markdown.contentHTML && (
+                <div>{detailDoctor.Markdown.contentHTML}</div>
+              )}
+          </div>
+          <div className="comment-doctor"></div>
+        </div>
+      </>
+    );
   }
 }
 

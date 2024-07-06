@@ -47,8 +47,13 @@ const getTopDoctorHome = (limit) => {
 const getAllDoctor = () => {
   return customizeAxios.get(`/api/get-all-doctor`);
 };
+
 const saveDetailDoctorService = (data) => {
   return customizeAxios.post(`/api/save-info-doctor`, data);
+};
+
+const getDetailInfoDoctor = (id) => {
+  return customizeAxios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 };
 
 export {
@@ -63,4 +68,5 @@ export {
   getTopDoctorHome,
   getAllDoctor,
   saveDetailDoctorService,
+  getDetailInfoDoctor,
 };

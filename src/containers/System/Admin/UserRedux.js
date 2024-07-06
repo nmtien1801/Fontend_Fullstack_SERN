@@ -181,6 +181,7 @@ class UserRedux extends Component {
   };
 
   // search : react PreviewImage
+  // ảnh
   handleOnChangeImage = async (event) => {
     let data = event;
     let file = data[0];

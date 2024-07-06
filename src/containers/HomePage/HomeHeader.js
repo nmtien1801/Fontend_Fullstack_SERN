@@ -92,75 +92,78 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
-        <div className="home-header-banner">
-          <div className="content-up">
-            <div className="title1">
-              <FormattedMessage id="banner.title1" />{" "}
+        {/* isShowBanner : chỉ hiện banner ở  HomePage chứ không hiện ở DetailDoctor*/}
+        {this.props.isShowBanner === true && (
+          <div className="home-header-banner">
+            <div className="content-up">
+              <div className="title1">
+                <FormattedMessage id="banner.title1" />{" "}
+              </div>
+              <div className="title2">
+                <FormattedMessage id="banner.title2" />
+              </div>
+              <div className="search">
+                <i className="fa fa-search" aria-hidden="true"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm bác sĩ, chuyên khoa, cơ sở y tế"
+                />
+              </div>
             </div>
-            <div className="title2">
-              <FormattedMessage id="banner.title2" />
-            </div>
-            <div className="search">
-              <i className="fa fa-search" aria-hidden="true"></i>
-              <input
-                type="text"
-                placeholder="Tìm bác sĩ, chuyên khoa, cơ sở y tế"
-              />
+            <div className="content-below px-md-5 ">
+              <div className="options row">
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="far fa-hospital"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.Specialized-examination" />
+                  </div>
+                </div>
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="fa fa-mobile" aria-hidden="true"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.Remote-examination" />
+                  </div>
+                </div>
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="fa fa-medkit" aria-hidden="true"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.General-examination" />
+                  </div>
+                </div>
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="fas fa-microscope"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.Medical-tests" />
+                  </div>
+                </div>
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="fas fa-head-side-virus"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.Mental-health" />
+                  </div>
+                </div>
+                <div className="option-child col-md-2">
+                  <div className="icon-child">
+                    <i className="fas fa-tooth"></i>
+                  </div>
+                  <div className="text-child">
+                    <FormattedMessage id="banner.Dental-examination" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="content-below px-md-5 ">
-            <div className="options row">
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="far fa-hospital"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.Specialized-examination" />
-                </div>
-              </div>
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="fa fa-mobile" aria-hidden="true"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.Remote-examination" />
-                </div>
-              </div>
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="fa fa-medkit" aria-hidden="true"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.General-examination" />
-                </div>
-              </div>
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="fas fa-microscope"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.Medical-tests" />
-                </div>
-              </div>
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="fas fa-head-side-virus"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.Mental-health" />
-                </div>
-              </div>
-              <div className="option-child col-md-2">
-                <div className="icon-child">
-                  <i className="fas fa-tooth"></i>
-                </div>
-                <div className="text-child">
-                  <FormattedMessage id="banner.Dental-examination" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </>
     );
   }
