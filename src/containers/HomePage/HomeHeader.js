@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom"; // điều hướng khi click vào home - giống history.push
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import { LANGUAGE } from "../../utils/constant";
 import { changeLanguage } from "../../store/actions"; // đường dẫn tắt
 

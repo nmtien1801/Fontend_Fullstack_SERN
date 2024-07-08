@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import { Link } from "react-router-dom";
 import { handleLoginApi } from "../../services/userService";
 import { toast } from "react-toastify";
@@ -20,6 +20,7 @@ class Login extends Component {
       errMessage: "",
     };
   }
+
   setValueLogin = (event) => {
     this.setState({
       valueLogin: event.target.value,
@@ -78,6 +79,7 @@ class Login extends Component {
   };
 
   render() {
+    console.log("pass: ", this.state.isShowPassword);
     return (
       <div className="login-container">
         <div className="container">
@@ -133,7 +135,7 @@ class Login extends Component {
                         ? "fas fa-eye-slash"
                         : "far fa-eye"
                     }
-                  ></i>
+                  />
                 </span>
               </div>
               <div className="col-12" style={{ color: "red" }}>

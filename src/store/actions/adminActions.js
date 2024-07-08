@@ -278,3 +278,30 @@ export const saveDetailDoctorSuccess = () => ({
 export const saveDetailDoctorFail = () => ({
   type: actionTypes.SAVE_DETAIL_DOCTOR_FAIL,
 });
+
+export const fetchAllScheduleTime = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllCode("TIME");
+      if (res && res.EC === 0) {
+        dispatch(fetchAllScheduleTimeSuccess(res.DT));
+        toast.success(res.EM);
+      } else {
+        dispatch(fetchAllScheduleTimeFail());
+        toast.error(res.EM);
+      }
+    } catch (error) {
+      dispatch(fetchAllScheduleTimeFail());
+      console.log("err: ", error);
+    }
+  };
+};
+
+export const fetchAllScheduleTimeSuccess = (data) => ({
+  type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS,
+  dataTime: data,
+});
+
+export const fetchAllScheduleTimeFail = () => ({
+  type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL,
+});

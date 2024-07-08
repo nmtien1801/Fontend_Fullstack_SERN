@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom"; // điều hướng khi click vào section - giống history.push
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import Slider from "react-slick";
 import * as actions from "../../../store/actions";
 import { LANGUAGE } from "../../../utils/constant";

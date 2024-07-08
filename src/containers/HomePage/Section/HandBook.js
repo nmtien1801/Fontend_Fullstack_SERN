@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import Slider from "react-slick";
 
 class HandBook extends Component {

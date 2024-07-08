@@ -56,6 +56,7 @@ const getDetailInfoDoctor = (id) => {
   return customizeAxios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 };
 
+
 export {
   handleLoginApi,
   fetchAllUser,

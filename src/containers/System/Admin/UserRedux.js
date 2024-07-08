@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import { connect } from "react-redux";
 import "./UserRedux.scss";
 import { toast } from "react-toastify";

@@ -40,15 +40,18 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      i {
+      span {
         position: absolute;
         right: 10px;
-        top: 10px;
+        top: 6px;
         cursor: pointer;
       }
     }
     .forgot-password {
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       a {
         text-decoration: none;
         &:hover {

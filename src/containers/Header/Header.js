@@ -8,7 +8,7 @@ import "./Header.scss";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../services/userService";
 import { LANGUAGE, USER_ROLE } from "../../utils";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import _ from "lodash";
 
 class Header extends Component {
