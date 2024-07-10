@@ -12,9 +12,14 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap; // thu nhỏ màn hình không bị bể layout
-    button {
+    .btn-schedule {
       padding: 5px 15px;
       border: 1px solid grey;
+
+      &.active {
+        background-color: orange;
+        color: white;
+      }
     }
   }
 
