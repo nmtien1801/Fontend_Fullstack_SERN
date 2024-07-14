@@ -35,7 +35,7 @@ class OutStandingDoctor extends Component {
   render() {
     let { language } = this.props;
     let { dataDoctor } = this.state;
-    console.log("dataDoctor", dataDoctor);
+
     // bể layout khi dùng npm băng chuyền
     // vì dataDoctor có ít phần tử nên vỡ layout, cần phải duplicate data
     dataDoctor = dataDoctor.concat(dataDoctor).concat(dataDoctor);

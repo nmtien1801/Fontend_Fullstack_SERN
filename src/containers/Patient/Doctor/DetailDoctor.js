@@ -8,21 +8,26 @@ import { Redirect } from "react-router-dom"; // điều hướng khi click vào 
 import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
+import DoctorSchedule from "./DoctorSchedule";
 
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       detailDoctor: {},
+      currentDoctorID: -1,
     };
   }
 
   async componentDidMount() {
-    // console.log("id: ", this.props.params.id);
     // lấy id phía sau ?
     if (this.props && this.props.match.params && this.props.match.params.id) {
+      this.setState({
+        currentDoctorID: this.props.match.params.id, // chuyền props để mới vào deltailDoctor hiện lịch trong ng
+      });
+
       let res = await getDetailInfoDoctor(this.props.match.params.id);
-      console.log("res: ", res);
+      // console.log("res: ", res);
       if (res && res.EC === 0) {
         this.setState({
           detailDoctor: res.DT,
@@ -34,7 +39,7 @@ class DetailDoctor extends Component {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    console.log("state: ", this.state);
+    // console.log("detailDoctor: ", detailDoctor);
     let { detailDoctor } = this.state;
     let { language } = this.props;
     let nameVi = "",
@@ -72,7 +77,12 @@ class DetailDoctor extends Component {
               </div>
             </div>
           </div>
-          <div className="schedule-doctor"></div>
+          <div className="schedule-doctor">
+            <div className="content-left">
+              <DoctorSchedule doctorID={this.state.currentDoctorID} />
+            </div>
+            <div className="content-right"></div>
+          </div>
           <div className="detail-info-doctor">
             {detailDoctor &&
               detailDoctor.Markdown &&

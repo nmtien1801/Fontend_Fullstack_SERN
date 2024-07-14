@@ -60,7 +60,7 @@ class ManageDoctor extends Component {
     this.setState({ selectedOption });
 
     let res = await getDetailInfoDoctor(selectedOption.value);
-    console.log("res: ", res);
+    // console.log("res: ", res);
     if (res && res.EC === 0 && res.DT && res.DT.Markdown) {
       let markdown = res.DT.Markdown;
       this.setState({

@@ -1,0 +1,46 @@
+.doctor-schedule-container {
+  border-right: 1px solid green;
+  height: 100%;
+  .all-schedule {
+    select {
+      border-bottom: 1px solid #ddd;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      outline: none; // viền đen mỗi khi chọn select
+      cursor: pointer;
+      padding: 10px 0;
+      color: #337ab7;
+      font-weight: 500;
+    }
+  }
+
+  .all-available-time {
+    .text-calendar {
+      color: #333;
+      margin: 10px 0;
+      span {
+        svg {
+          margin-right: 10px;
+        }
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      // border: 1px solid red;
+    }
+    .time-content {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap; // tự động xuống dòng
+      button {
+        padding: 8px 15px;
+        min-width: 120px;
+        font-weight: 600;
+        color: #333;
+        &:hover {
+          background-color: #45c3d2;
+        }
+      }
+    }
+  }
+}

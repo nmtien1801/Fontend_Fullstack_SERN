@@ -23,6 +23,7 @@ class Header extends Component {
     localStorage.removeItem("JWT"); // clear local storage
     let data = await logoutUser(); // clear cookies
     if (data && +data.EC === 0) {
+      this.props.processLogout();
       toast.success("logout success...");
       // redux tự đẩy về trang login
     } else {
@@ -88,7 +89,6 @@ class Header extends Component {
           <div
             className="btn btn-logout"
             onClick={() => {
-              processLogout();
               this.handleLogout();
             }}
             title="Logout"

@@ -63,7 +63,7 @@ class ManageScheduleDoctor extends Component {
   handleSaveSchedule = async () => {
     let { rangeTime, selectedDoctor, currentDate } = this.state;
     let result = [];
-    let formatDate = new Date(currentDate).getTime(); // ngày tháng năm dd/MM/yyyy
+    let formatDate = new Date(currentDate).getTime(); // ngày tháng năm 123165(FE) -> dd/MM/yyyy(BE)
 
     if (!currentDate) {
       toast.error("Please choose date");
@@ -125,8 +125,8 @@ class ManageScheduleDoctor extends Component {
   render() {
     const { isLoggedIn, language } = this.props;
     let { rangeTime } = this.state;
-    // console.log("allScheduleTime", this.props.allScheduleTime);
-
+    console.log("currentDate", this.state.currentDate);
+    let yesterday = moment().subtract(1, "day").toDate(); //chọn được ngày hiện tại
     return (
       <>
         <div className="manage-schedule-container">
@@ -153,8 +153,10 @@ class ManageScheduleDoctor extends Component {
                   onChange={this.handleOnChangeDatePicker} // vì là props nên kh ()
                   className="form-control"
                   selected={this.state.currentDate}
-                  // value={this.state.currentDate}
-                  minDate={new Date()}
+                  //search: js get yesterday date
+                  // fix bug : không chọn ngày hôm nay
+                  // set chọn ngày hiện tại
+                  minDate={yesterday}
                 />
               </div>
             </div>
