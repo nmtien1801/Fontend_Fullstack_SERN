@@ -24,14 +24,31 @@ class DoctorSchedule extends Component {
     for (let i = 0; i < 7; i++) {
       let object = {};
       if (language === LANGUAGE.VI) {
-        let labelVi = moment(new Date()).add(i, "days").format("dddd - DD/MM");
-        object.label = this.capitalizeFirstLetter(labelVi);
+        // vì moment không hiện chữ hôm nay nên ta cần format lại
+        if (i === 0) {
+          let labelVi2 = moment(new Date()).format("DD/MM");
+          let today = `Hôm nay - ${labelVi2}`;
+          object.label = today;
+        } else {
+          let labelVi = moment(new Date())
+            .add(i, "days")
+            .format("dddd - DD/MM");
+          object.label = this.capitalizeFirstLetter(labelVi); // in hoa chứ đầu
+        }
       } else {
-        object.label = moment(new Date())
-          .add(i, "days")
-          .locale("en")
-          .format("ddd - DD/MM");
+        // vì moment không hiện chữ hôm nay nên ta cần format lại
+        if (i === 0) {
+          let labelEn = moment(new Date()).locale("en").format("DD/MM");
+          let today = `Today - ${labelEn}`;
+          object.label = today;
+        } else {
+          object.label = moment(new Date())
+            .add(i, "days")
+            .locale("en")
+            .format("ddd - DD/MM");
+        }
       }
+
       object.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
       arrDate.push(object); //{label: 'thứ năm - 11/07', value: 1720630800000}
     }
@@ -115,26 +132,45 @@ class DoctorSchedule extends Component {
         <div className="all-available-time">
           <div className="text-calendar">
             <span>
-              <i className="fas fa-calendar-alt" /> Lịch khám
+              <i className="fas fa-calendar-alt" />
+              <FormattedMessage id="patient.detail-doctor.schedule" />
             </span>
           </div>
           <div className="time-content">
             {allAvailableTime && allAvailableTime.length > 0 ? (
-              allAvailableTime.map((time, index) => {
-                let timeDisplay =
-                  language === LANGUAGE.VI
-                    ? time.timeTypeData.valueVi
-                    : time.timeTypeData.valueEn;
-                return (
-                  <button key={index} className=" btn btn-warning">
-                    {timeDisplay}
-                  </button>
-                );
-              })
+              <>
+                <div className="time-content-btns">
+                  {allAvailableTime.map((time, index) => {
+                    let timeDisplay =
+                      language === LANGUAGE.VI
+                        ? time.timeTypeData.valueVi
+                        : time.timeTypeData.valueEn;
+                    return (
+                      <button
+                        key={index}
+                        className={
+                          language === LANGUAGE.VI
+                            ? " btn btn-warning btn-vi"
+                            : " btn btn-warning btn-en"
+                        }
+                      >
+                        {timeDisplay}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="book-free">
+                  <span>
+                    <FormattedMessage id={"patient.detail-doctor.choose"} />
+                    <i className="far fa-hand-point-up"></i>
+                    <FormattedMessage id={"patient.detail-doctor.book-free"} />
+                  </span>
+                </div>
+              </>
             ) : (
-              <div>
-                Không có lịch hẹn trong thời gian này , vui lòng chọn thời gian
-                khác!
+              <div className="no-schedule">
+                <FormattedMessage id="patient.detail-doctor.dont-schedule" />
               </div>
             )}
           </div>
