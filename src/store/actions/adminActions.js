@@ -11,10 +11,6 @@ import {
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
-// export const fetchGenderStart = () => ({
-//   type: actionTypes.FETCH_GENDER_START,
-// });
-
 export const fetchGenderStart = () => {
   return async (dispatch, getState) => {
     try {
@@ -304,4 +300,47 @@ export const fetchAllScheduleTimeSuccess = (data) => ({
 
 export const fetchAllScheduleTimeFail = () => ({
   type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL,
+});
+
+export const getAllRequireDoctorInfo = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: actionTypes.FETCH_REQUIRE_DOCTOR_INFO_START });
+
+      let resPrice = await getAllCode("PRICE");
+      let resProvince = await getAllCode("PROVINCE");
+      let rePayment = await getAllCode("PAYMENT");
+
+      if (
+        resPrice &&
+        resPrice.EC === 0 &&
+        resProvince &&
+        resProvince.EC === 0 &&
+        rePayment &&
+        rePayment.EC === 0
+      ) {
+        let data = {
+          price: resPrice.DT,
+          province: resProvince.DT,
+          payment: rePayment.DT,
+        };
+
+        dispatch(getRequireDoctorInfoSuccess(data));
+      } else {
+        dispatch(getRequireDoctorInfoFail());
+      }
+    } catch (error) {
+      dispatch(getRequireDoctorInfoFail());
+      console.log("err: ", error);
+    }
+  };
+};
+
+export const getRequireDoctorInfoSuccess = (allRequireData) => ({
+  type: actionTypes.FETCH_REQUIRE_DOCTOR_INFO_SUCCESS,
+  allRequireData: allRequireData,
+});
+
+export const getRequireDoctorInfoFail = () => ({
+  type: actionTypes.FETCH_REQUIRE_DOCTOR_INFO_FAIL,
 });

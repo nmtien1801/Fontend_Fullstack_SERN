@@ -56,8 +56,7 @@ class Login extends Component {
     let res = await handleLoginApi(this.state.valueLogin, this.state.password);
     if (res && +res.EC === 0) {
       toast.success(res.EM);
-
-      localStorage.setItem("JWT", res.DT.token); // cookies đã là string nên không dùng json.stringfy nữa
+      localStorage.setItem("JWT", res.DT.access_token); // cookies đã là string nên không dùng json.stringfy nữa
       this.props.userLoginSuccess(res.DT);
     } else {
       toast.error(res.EM);
@@ -79,7 +78,7 @@ class Login extends Component {
   };
 
   render() {
-    console.log("pass: ", this.state.isShowPassword);
+    console.log("pass: ", this.props.userInfo);
     return (
       <div className="login-container">
         <div className="container">
@@ -187,6 +186,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.app.language,
     userInfo: state.user.userInfo,
+    isLoggedIn: state.user.isLoggedIn,
   };
 };
 
