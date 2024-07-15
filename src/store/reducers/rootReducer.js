@@ -22,15 +22,18 @@ const persistCommonConfig = {
 // };
 
 // ai cũng có thể đang nhập
+// nơi đây là cấu hình localStorage cho FE
+// persist:user
 const userPersistConfig = {
   ...persistCommonConfig,
   key: "user",
   whitelist: ["isLoggedIn", "userInfo"],
 };
 
+// bug: bị thay đổi state redux khi dùng 2 redux khác nhau
 const appPersistConfig = {
   ...persistCommonConfig,
-  key: "user",
+  key: "app",
   whitelist: ["language"],
 };
 
