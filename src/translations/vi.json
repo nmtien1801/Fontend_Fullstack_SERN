@@ -70,6 +70,13 @@
       "dont-schedule": "Không có lịch hẹn trong thời gian này , vui lòng chọn thời gian khác!",
       "choose": "chọn ",
       "book-free": " và đặt (miễn phí)"
+    },
+    "extra-info-doctor": {
+      "text-address": "ĐỊA CHỈ KHÁM",
+      "price": "Giá khám: ",
+      "show-detail": "Xem chi tiết",
+      "hide-detail": "Ẩn bảng giá",
+      "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: "
     }
   },
   "admin": {

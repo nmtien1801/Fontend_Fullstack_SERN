@@ -66,6 +66,10 @@ const getScheduleDoctorByDate = (id, date) => {
   );
 };
 
+const getExtraInfoDoctorById = (id) => {
+  return customizeAxios.get(`/api/get-extra-info-doctor-by-id?doctorID=${id}`);
+};
+
 export {
   handleLoginApi,
   fetchAllUser,
@@ -81,4 +85,5 @@ export {
   getDetailInfoDoctor,
   saveBulkScheduleDoctor,
   getScheduleDoctorByDate,
+  getExtraInfoDoctorById,
 };

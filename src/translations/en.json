@@ -70,6 +70,13 @@
       "dont-schedule": "There are no appointments available during this time, please select a time other!",
       "choose": "choose ",
       "book-free": " and book (free)"
+    },
+    "extra-info-doctor": {
+      "text-address": "ADDRESS EXAMINATION",
+      "price": "Price: ",
+      "show-detail": "Show detail",
+      "hide-detail": "Hide price list",
+      "payment": "Patients can pay fees by: "
     }
   },
   "admin": {

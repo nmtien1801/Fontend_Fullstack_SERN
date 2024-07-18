@@ -67,7 +67,7 @@ class DoctorSchedule extends Component {
       let date = event.target.value;
 
       let res = await getScheduleDoctorByDate(doctorID, date);
-      console.log("res 1: ", res);
+      
       if (res && res.EC === 0) {
         this.setState({
           allAvailableTime: res.DT ? res.DT : [],
@@ -98,7 +98,7 @@ class DoctorSchedule extends Component {
     }
 
     // hiển thị time chọn select của ngày hiện tại
-    if (this.props.doctorID !== prevProps.doctorID) {
+    if (prevProps.doctorID !== this.props.doctorID) {
       let allDays = this.getArrDays(this.props.language);
 
       // vừa vào là hiện time của ngày hiện tại

@@ -9,6 +9,7 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfo from "./DoctorExtraInfo";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class DetailDoctor extends Component {
   componentDidUpdate(prevProps, prevState) {}
 
   render() {
-    // console.log("detailDoctor: ", detailDoctor);
+    // console.log("currentDoctorID: ", this.state.currentDoctorID);
     let { detailDoctor } = this.state;
     let { language } = this.props;
     let nameVi = "",
@@ -81,7 +82,9 @@ class DetailDoctor extends Component {
             <div className="content-left">
               <DoctorSchedule doctorID={this.state.currentDoctorID} />
             </div>
-            <div className="content-right"></div>
+            <div className="content-right">
+              <DoctorExtraInfo doctorID={this.state.currentDoctorID} />
+            </div>
           </div>
           <div className="detail-info-doctor">
             {detailDoctor &&
