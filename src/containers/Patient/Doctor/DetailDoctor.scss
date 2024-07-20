@@ -10,7 +10,10 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: center center no-repeat;
+      // ảnh avatar
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       margin: 10px 20px;
     }
     .content-right {

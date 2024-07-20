@@ -1,0 +1,32 @@
+.booking-modal-container {
+  .booking-modal-content {
+    display: flex;
+    flex-direction: column; // căn chỉnh 3 phần header, body(to nhất), footer theo chiều dọc
+
+    .booking-modal-header {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      .left {
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+      }
+      .right {
+        float: right;
+      }
+    }
+
+    .booking-modal-body {
+      height: 100%;
+      padding: 15px;
+    }
+
+    .booking-modal-footer {
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: end;
+      gap: 15px;
+    }
+  }
+}

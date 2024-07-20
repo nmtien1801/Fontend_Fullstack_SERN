@@ -40,7 +40,7 @@ class DoctorExtraInfo extends Component {
     }
 
     // vì props doctorID bên doctorDetail trước khi didmount là -1 nên setState extraInfo không chạy
-    // bug: [intervention] slow network is detected. -> set state không ăn
+    // bug: [Intervention] Slow network is detected. -> set state không ăn (vì id = -1)
     if (prevState.extraInfo !== this.state.extraInfo) {
       this.setState({
         extraInfo: this.state.extraInfo,

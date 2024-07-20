@@ -49,11 +49,14 @@ class DetailDoctor extends Component {
       nameVi = `${detailDoctor.positionData.valueVi} , ${detailDoctor.userName}`;
       nameEn = `${detailDoctor.positionData.valueEn} , ${detailDoctor.userName}`;
     }
+
+    // fix bug render currentDoctorID = -1 khi mới run
+    let currentDoctorID = this.state.currentDoctorID; // lấy giá trị cuối cùng từ setState
     return (
       <>
         <HomeHeader isShowBanner={false} />
         <div className="doctor-detail-container">
-          <div className="intro-doctor">
+          <div className="intro-doctor"> 
             <div
               // chèn ảnh từ BE
               //![]()
@@ -80,10 +83,10 @@ class DetailDoctor extends Component {
           </div>
           <div className="schedule-doctor">
             <div className="content-left">
-              <DoctorSchedule doctorID={this.state.currentDoctorID} />
+              <DoctorSchedule doctorID={currentDoctorID} />
             </div>
             <div className="content-right">
-              <DoctorExtraInfo doctorID={this.state.currentDoctorID} />
+              <DoctorExtraInfo doctorID={currentDoctorID} />
             </div>
           </div>
           <div className="detail-info-doctor">
