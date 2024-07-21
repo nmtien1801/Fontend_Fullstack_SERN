@@ -48,7 +48,9 @@ class ProfileDoctor extends Component {
           <div>
             {time} - {date}
           </div>
-          <div>Miễn phí đặt lịch</div>
+          <div>
+            <FormattedMessage id={"patient.booking-modal.priceBooking"} />
+          </div>
         </>
       );
     }
@@ -87,8 +89,8 @@ class ProfileDoctor extends Component {
       nameEn = `${dataProfile.positionData.valueEn} , ${dataProfile.userName}`;
     }
 
-    console.log("dataProfile: ", dataProfile);
-    console.log("dataScheduleTimeModal: ", dataScheduleTimeModal);
+    // console.log("dataProfile: ", dataProfile);
+    // console.log("dataScheduleTimeModal: ", dataScheduleTimeModal);
     return (
       <>
         <div className="profile-doctor-container">
@@ -132,14 +134,24 @@ class ProfileDoctor extends Component {
                   value={dataProfile.Doctor_Info.priceTypeData.valueVi} // 300 000 -> 300,000 VND
                   thousandSeparator=","
                   displayType="text"
-                  renderText={(value) => <t>{`Giá khám: ${value} VND`}</t>}
+                  renderText={(value) => (
+                    <t>
+                      <FormattedMessage id={"patient.booking-modal.price"} />
+                      {`${value} VND`}
+                    </t>
+                  )}
                 />
               ) : (
                 <NumericFormat
                   value={dataProfile.Doctor_Info.priceTypeData.valueEn} // 300 000 -> 300,000 $
                   thousandSeparator=","
                   displayType="text"
-                  renderText={(value) => <t>{`Giá khám: ${value} $`}</t>}
+                  renderText={(value) => (
+                    <t>
+                      <FormattedMessage id={"patient.booking-modal.price"} />
+                      {`${value} $`}
+                    </t>
+                  )}
                 />
               )
             ) : (

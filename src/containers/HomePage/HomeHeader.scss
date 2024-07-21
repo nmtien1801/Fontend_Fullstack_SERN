@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 10000;
+  z-index: 100; // z-index quá lớn nên che mất toast và modal
   .home-header-content {
     .left-content {
       display: flex;
