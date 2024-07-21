@@ -60,11 +60,13 @@ class BookingModal extends Component {
     return result;
   };
 
-  handleConformBooking = async () => {
+  handleConfirmBooking = async () => {
     let date = new Date(this.state.birthday).getTime(); // ngày -> fortmat 32566033 để
+    let timeString = this.buildTimeBooking(this.props.dataScheduleTimeModal);
+
     let res = await postPatientBookAppointment({
       doctorID: this.state.doctorID,
-      fullName: this.state.fullName,
+      fullName: this.state.fullName, // tên patient
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
       address: this.state.address,
@@ -72,6 +74,9 @@ class BookingModal extends Component {
       date: date,
       selectedGender: this.state.selectedGender.value,
       timeType: this.state.timeType,
+      language: this.props.language,
+      timeString: timeString,
+      doctorName: this.props.dataScheduleTimeModal.doctorData.userName, // tên doctor
     });
 
     if (res && res.EC === 0) {
@@ -84,6 +89,26 @@ class BookingModal extends Component {
 
   handleChangeSelect = (selected) => {
     this.setState({ selectedGender: selected });
+  };
+
+  buildTimeBooking = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGE.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
+
+      // convert ngày tháng năm -> input: 32566033
+      let date =
+        language === LANGUAGE.VI
+          ? moment(dataTime.date).format("dddd - DD/MM/YYYY")
+          : // vì moment không hiện chữ hôm nay nên ta cần format lại
+            moment(dataTime.date).locale("en").format("ddd - MM/DD/YYYY");
+
+      return `${time} - ${date}`;
+    }
+    return "";
   };
 
   async componentDidMount() {
@@ -248,7 +273,7 @@ class BookingModal extends Component {
             <div className="booking-modal-footer">
               <button
                 className="btn-booking-confirm btn btn-warning"
-                onClick={() => this.handleConformBooking()}
+                onClick={() => this.handleConfirmBooking()}
               >
                 <FormattedMessage id={"patient.booking-modal.btn-confirm"} />
               </button>
