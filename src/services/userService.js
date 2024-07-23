@@ -75,7 +75,13 @@ const getProfileDoctorById = (id) => {
 };
 
 const postPatientBookAppointment = (data) => {
+  // lấy sau ?
+  // search: react get url after question mark
   return customizeAxios.post(`/api/patient-book-appointment`, data);
+};
+
+const postVerifyBookAppointment = (data) => {
+  return customizeAxios.post(`/api/verify-book-appointment`, data);
 };
 export {
   handleLoginApi,
@@ -95,4 +101,5 @@ export {
   getExtraInfoDoctorById,
   getProfileDoctorById,
   postPatientBookAppointment,
+  postVerifyBookAppointment,
 };

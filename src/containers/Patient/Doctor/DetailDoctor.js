@@ -21,7 +21,7 @@ class DetailDoctor extends Component {
   }
 
   async componentDidMount() {
-    // lấy id phía sau ?
+    // lấy id phía sau /
     if (this.props && this.props.match.params && this.props.match.params.id) {
       this.setState({
         currentDoctorID: this.props.match.params.id, // chuyền props để mới vào deltailDoctor hiện lịch trong ng
@@ -56,7 +56,7 @@ class DetailDoctor extends Component {
       <>
         <HomeHeader isShowBanner={false} />
         <div className="doctor-detail-container">
-          <div className="intro-doctor"> 
+          <div className="intro-doctor">
             <div
               // chèn ảnh từ BE
               //![]()

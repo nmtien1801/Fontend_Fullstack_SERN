@@ -228,7 +228,7 @@ class ManageDoctor extends Component {
   render() {
     let { hasOldData, listPrice, listPayment, listProvince } = this.state;
     let { allRequireDoctorInfo } = this.props;
-    console.log("state: ", this.state);
+    // console.log("state: ", this.state);
     return (
       <>
         <div className="manage-doctor-container">

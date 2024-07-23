@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import { connect } from "react-redux";
-import * as actions from "../../../store/actions";
-import { LANGUAGE } from "../../../utils/constant";
+import * as actions from "../../store/actions";
+import { LANGUAGE } from "../../utils/constant";
 // import "./DefaultClass.scss";
 import { NumericFormat } from "react-number-format"; // format số tiền
 

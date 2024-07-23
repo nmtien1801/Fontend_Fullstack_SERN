@@ -154,7 +154,7 @@ class BookingModal extends Component {
         ? ""
         : dataScheduleTimeModal.doctorID;
     let yesterday = moment().subtract(1, "day").toDate(); //chọn được ngày hiện tại
-    console.log("state: ", this.state);
+    // console.log("state: ", this.state);
     return (
       <div>
         <Modal
