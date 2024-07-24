@@ -34,7 +34,7 @@ let defaultUserData = {
   groupID: "",
   position: "",
   role: "",
-  avatar: "",
+  avatar: "", // để lưu db
 };
 
 class UserRedux extends Component {
@@ -48,7 +48,7 @@ class UserRedux extends Component {
       roleArr: [],
       positionArr: [],
       action: CRUD_ACTION.CREATE,
-      previewIMG: "",
+      previewIMG: "", // để xem và get ảnh từ db
     };
   }
 
