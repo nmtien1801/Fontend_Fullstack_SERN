@@ -66,6 +66,14 @@ class ManageSpecialty extends Component {
     let res = await createNewSpecialty(this.state);
     if (res && res.EC === 0) {
       toast.success(res.EM);
+      // xoá trắng
+      this.setState({
+        name: "",
+        imageBase64: "",
+        previewIMG: "",
+        descriptionHTML: "",
+        descriptionMarkdown: "",
+      });
     } else {
       toast.error(res.EM);
       console.log("error handleSaveNewSpecialty", res);
@@ -82,9 +90,6 @@ class ManageSpecialty extends Component {
       <>
         <div className="manage-specialty-container">
           <div className="ms-title">Quản lý chuyên khoa</div>
-          <div className="btn-add-new-specialty">
-            <button className="btn btn-primary">Add new </button>
-          </div>
 
           <div className="add-new-specialty row">
             <div className="col-md-6 form-group">
