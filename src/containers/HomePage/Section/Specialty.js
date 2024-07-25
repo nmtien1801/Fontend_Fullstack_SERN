@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import Slider from "react-slick";
 import { getAllSpecialty } from "../../../services/userService";
+import { withRouter } from "react-router"; // điều hướng khi click vào section - giống history.push
 
 class Specialty extends Component {
   constructor(props) {
@@ -12,6 +13,12 @@ class Specialty extends Component {
       dataSpecialty: [],
     };
   }
+
+  handleViewDetailSpecialty = (item) => {
+    // search: How to get parameter value from query string?
+    // search: react router navigate
+    return this.props.history.push(`/detail-specialty/${item.id}`);
+  };
 
   async componentDidMount() {
     let res = await getAllSpecialty();
@@ -47,6 +54,7 @@ class Specialty extends Component {
                       <div
                         className="section-customize specialty-customize"
                         key={index}
+                        onClick={() => this.handleViewDetailSpecialty(item)}
                       >
                         <div
                           className="bg-img"
@@ -79,4 +87,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Specialty)
+);
