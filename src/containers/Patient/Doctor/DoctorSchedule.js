@@ -100,6 +100,20 @@ class DoctorSchedule extends Component {
         allDays: allDays,
       });
     }
+
+    // hiển thị time chọn select của ngày hiện tại
+    // mới vào không hiện -> do state props cha chưa được set Vì ban đầu render ch có data
+    if (this.props.doctorID) {
+      let allDays = this.getArrDays(this.props.language);
+
+      // vừa vào là hiện time của ngày hiện tại
+      // hôm nay
+      let res = await getScheduleDoctorByDate(
+        this.props.doctorID, // ID doctor đc lấy khi click vào detail doctor
+        allDays[0].value // {label: 'Hôm nay - 26/07', value: 1721926800000}
+      );
+      this.setState({ allAvailableTime: res.DT ? res.DT : [] });
+    }
   }
 
   async componentDidUpdate(prevProps, prevState) {
@@ -113,6 +127,7 @@ class DoctorSchedule extends Component {
       let allDays = this.getArrDays(this.props.language);
 
       // vừa vào là hiện time của ngày hiện tại
+      // hôm nay
       let res = await getScheduleDoctorByDate(
         this.props.doctorID, // ID doctor đc lấy khi click vào detail doctor
         allDays[0].value

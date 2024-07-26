@@ -135,10 +135,10 @@ class ProfileDoctor extends Component {
                   thousandSeparator=","
                   displayType="text"
                   renderText={(value) => (
-                    <t>
+                    <span>
                       <FormattedMessage id={"patient.booking-modal.price"} />
                       {`${value} VND`}
-                    </t>
+                    </span>
                   )}
                 />
               ) : (
@@ -147,10 +147,10 @@ class ProfileDoctor extends Component {
                   thousandSeparator=","
                   displayType="text"
                   renderText={(value) => (
-                    <t>
+                    <span>
                       <FormattedMessage id={"patient.booking-modal.price"} />
                       {`${value} $`}
-                    </t>
+                    </span>
                   )}
                 />
               )

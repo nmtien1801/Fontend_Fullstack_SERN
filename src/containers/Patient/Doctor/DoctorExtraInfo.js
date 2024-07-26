@@ -23,7 +23,24 @@ class DoctorExtraInfo extends Component {
     });
   };
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    if (this.props.doctorID) {
+      let res = await getExtraInfoDoctorById(this.props.doctorID);
+      if (res && res.EC === 0) {
+        this.state = {
+          extraInfo: res.DT,
+        };
+      } else {
+        toast.error(res.EM);
+      }
+
+      // vì props doctorID bên doctorDetail trước khi didmount là -1(do không đổi) nên setState extraInfo không chạy lại
+      // bug: [Intervention] Slow network is detected. -> set state không ăn (vì id = -1)
+      this.setState({
+        extraInfo: this.state.extraInfo,
+      });
+    }
+  }
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevProps.language !== this.props.language) {
@@ -51,7 +68,6 @@ class DoctorExtraInfo extends Component {
   render() {
     let { isShowDetailInfo, extraInfo } = this.state;
     let { language } = this.props;
-    // console.log("state2: ", this.state);
     return (
       <>
         <div className="doctor-extra-info-container">
@@ -94,14 +110,16 @@ class DoctorExtraInfo extends Component {
                             value={extraInfo.priceTypeData.valueVi} // 300 000 -> 300,000 VND
                             thousandSeparator=","
                             displayType="text"
-                            renderText={(value) => <t>{`${value} VND`}</t>}
+                            renderText={(value) => (
+                              <span>{`${value} VND`}</span>
+                            )}
                           />
                         ) : (
                           <NumericFormat
                             value={extraInfo.priceTypeData.valueVi} // 300 000 -> 300,000 $
                             thousandSeparator=","
                             displayType="text"
-                            renderText={(value) => <t>{`${value} $`}</t>}
+                            renderText={(value) => <span>{`${value} $`}</span>}
                           />
                         )
                       ) : (
