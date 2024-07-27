@@ -55,7 +55,7 @@ class DetailSpecialty extends Component {
     // lấy id phía sau /
     if (this.props && this.props.match.params && this.props.match.params.id) {
       let id = this.props.match.params.id;
-      let location = "ALL";
+      let location = "ALL"; // mới vào lấy tất cả
       let res = await getDetailSpecialtyById({ id, location });
       let resProvince = await getAllCode("PROVINCE");
 
@@ -73,6 +73,7 @@ class DetailSpecialty extends Component {
         }
 
         let dataProvince = resProvince.DT;
+        // gán thêm giá trị All vào tỉnh thành để lọc location = ALL
         if (dataProvince && dataProvince.length > 0) {
           dataProvince.push({
             createAt: null,
@@ -91,9 +92,7 @@ class DetailSpecialty extends Component {
     }
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-   
-  }
+  async componentDidUpdate(prevProps, prevState) {}
 
   render() {
     let { arrDoctorID, dataDetailSpecialty, listProvince } = this.state;
@@ -141,8 +140,9 @@ class DetailSpecialty extends Component {
                       <div className="profile-doctor">
                         <ProfileDoctor
                           doctorID={item}
-                          isShowDescDoctor={true}
-                          // dataScheduleTimeModal={dataScheduleTimeModal}
+                          isShowDescDoctor={true} // không show "13:00 - 14:00 - thứ bảy - 27/07/2024"
+                          isShowPrice={false} // không show 300.000đ
+                          isShowLinkDetail={true} // show "xem thêm"
                         />
                       </div>
                     </div>

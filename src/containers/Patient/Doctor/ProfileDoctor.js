@@ -9,6 +9,7 @@ import { Modal, Button, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { getProfileDoctorById } from "../../../services/userService";
 import _ from "lodash";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 class ProfileDoctor extends Component {
   constructor(props) {
@@ -80,6 +81,9 @@ class ProfileDoctor extends Component {
       dataScheduleTimeModal,
       language,
       isShowDescDoctor,
+      isShowLinkDetail,
+      isShowPrice,
+      doctorID,
     } = this.props;
     let { dataProfile } = this.state;
     let nameVi = "",
@@ -127,37 +131,46 @@ class ProfileDoctor extends Component {
             </div>
           </div>
 
-          <div className="price">
-            {dataProfile && dataProfile.Doctor_Info ? (
-              language === LANGUAGE.VI ? (
-                <NumericFormat
-                  value={dataProfile.Doctor_Info.priceTypeData.valueVi} // 300 000 -> 300,000 VND
-                  thousandSeparator=","
-                  displayType="text"
-                  renderText={(value) => (
-                    <span>
-                      <FormattedMessage id={"patient.booking-modal.price"} />
-                      {`${value} VND`}
-                    </span>
-                  )}
-                />
+          {isShowLinkDetail === true && (
+            <div className="view-detail-doctor">
+              {/* chuyển trang với thẻ <a> */}
+              <Link to={`/detail-doctor/${doctorID}`}> Xem thêm</Link>
+            </div>
+          )}
+
+          {isShowPrice === true && (
+            <div className="price">
+              {dataProfile && dataProfile.Doctor_Info ? (
+                language === LANGUAGE.VI ? (
+                  <NumericFormat
+                    value={dataProfile.Doctor_Info.priceTypeData.valueVi} // 300 000 -> 300,000 VND
+                    thousandSeparator=","
+                    displayType="text"
+                    renderText={(value) => (
+                      <span>
+                        <FormattedMessage id={"patient.booking-modal.price"} />
+                        {`${value} VND`}
+                      </span>
+                    )}
+                  />
+                ) : (
+                  <NumericFormat
+                    value={dataProfile.Doctor_Info.priceTypeData.valueEn} // 300 000 -> 300,000 $
+                    thousandSeparator=","
+                    displayType="text"
+                    renderText={(value) => (
+                      <span>
+                        <FormattedMessage id={"patient.booking-modal.price"} />
+                        {`${value} $`}
+                      </span>
+                    )}
+                  />
+                )
               ) : (
-                <NumericFormat
-                  value={dataProfile.Doctor_Info.priceTypeData.valueEn} // 300 000 -> 300,000 $
-                  thousandSeparator=","
-                  displayType="text"
-                  renderText={(value) => (
-                    <span>
-                      <FormattedMessage id={"patient.booking-modal.price"} />
-                      {`${value} $`}
-                    </span>
-                  )}
-                />
-              )
-            ) : (
-              ""
-            )}
-          </div>
+                ""
+              )}
+            </div>
+          )}
         </div>
       </>
     );

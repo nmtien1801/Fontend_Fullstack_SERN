@@ -17,6 +17,7 @@ class OutStandingDoctor extends Component {
   handleViewDetailDoctor = (doctor) => {
     // search: How to get parameter value from query string?
     // search: react router navigate
+    // chuyển trang khi click vào 1 bác sĩ
     return this.props.history.push(`/detail-doctor/${doctor.id}`);
   };
 
