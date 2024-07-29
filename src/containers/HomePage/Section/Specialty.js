@@ -46,7 +46,7 @@ class Specialty extends Component {
 
             <div className="section-body">
               <Slider {...this.props.settings}>
-                {/* dùng div chèn ảnh phải set height và width */}
+                {/* dùng div chèn ảnh phải set height và width -> dùng style */}
                 {dataSpecialty &&
                   dataSpecialty.length > 0 &&
                   dataSpecialty.map((item, index) => {

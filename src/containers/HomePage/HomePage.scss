@@ -75,7 +75,14 @@
 .MedicalFacilities-customize {
   .bg-img {
     //dùng div chèn ảnh phải viết url trong css
-    background: url("../../assets/images/Specialty/1.jpg");
+    // background: url("../../assets/images/Specialty/1.jpg");
+  }
+  .clinic-name {
+    padding: 10px 0;
+    font-size: 15px;
+    &:hover {
+      color: rgb(41, 41, 246);
+    }
   }
 }
 

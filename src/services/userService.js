@@ -107,9 +107,7 @@ const getAllClinic = () => {
 };
 
 const getDetailClinicById = (data) => {
-  return customizeAxios.get(
-    `/api/get-detail-clinic-by-id?id=${data.id}&location=${data.location}`
-  );
+  return customizeAxios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
 };
 export {
   handleLoginApi,
