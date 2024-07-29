@@ -31,7 +31,7 @@ class DetailClinic extends Component {
         let arrDoctorID = [];
 
         if (data && !_.isEmpty(data)) {
-          let arr = data.doctorSpecialty;
+          let arr = data.doctorClinic;
           if (arr && arr.length > 0) {
             arrDoctorID = arr.map((item) => {
               return item.doctorID;
@@ -56,10 +56,10 @@ class DetailClinic extends Component {
 
     return (
       <>
-        <div className="detail-specialty-container">
+        <div className="detail-Clinic-container">
           <HomeHeader />
-          <div className="detail-specialty-body">
-            <div className="description-specialty">
+          <div className="detail-Clinic-body">
+            <div className="description-Clinic">
               {/* search: react html dangerous -> dùng markdown
                chuyển html thành dạng text từ markdown */}
               {dataDetailClinic && !_.isEmpty(dataDetailClinic) && (

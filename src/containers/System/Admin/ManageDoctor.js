@@ -211,6 +211,15 @@ class ManageDoctor extends Component {
           rs.push(obj);
         });
       }
+      if (type === "CLINIC") {
+        inputData.map((item, index) => {
+          let obj = {};
+
+          obj.label = item.name;
+          obj.value = item.id;
+          rs.push(obj);
+        });
+      }
     }
 
     return rs;
@@ -256,7 +265,7 @@ class ManageDoctor extends Component {
       });
     }
     if (prevProps.allRequireDoctorInfo !== this.props.allRequireDoctorInfo) {
-      let { price, payment, province, specialty } =
+      let { price, payment, province, specialty, clinic } =
         this.props.allRequireDoctorInfo;
 
       let dataSelectPrice = this.buildDataInputSelect(price, "PRICE");
@@ -266,11 +275,14 @@ class ManageDoctor extends Component {
         specialty,
         "SPECIALTY"
       );
+      let dataSelectClinic = this.buildDataInputSelect(clinic, "CLINIC");
+
       this.setState({
         listPrice: dataSelectPrice,
         listPayment: dataSelectPayment,
         listProvince: dataSelectProvince,
         listSpecialty: dataSelectSpecialty,
+        listClinic: dataSelectClinic,
       });
     }
   }

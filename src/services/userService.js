@@ -103,11 +103,11 @@ const createNewClinic = (data) => {
 };
 
 const getAllClinic = () => {
-  return customizeAxios.get(`/api/get-all-clinic`);
+  return customizeAxios.get(`/api/get-all-clinic`); // dùng để map trên slider
 };
 
 const getDetailClinicById = (data) => {
-  return customizeAxios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
+  return customizeAxios.get(`/api/get-detail-clinic-by-id?id=${data.id}`); // dùng để show detail khi click vào slider
 };
 export {
   handleLoginApi,
