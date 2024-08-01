@@ -63,7 +63,7 @@ class ManageScheduleDoctor extends Component {
   handleSaveSchedule = async () => {
     let { rangeTime, selectedDoctor, currentDate } = this.state;
     let result = [];
-    let formatDate = new Date(currentDate).getTime(); // ngày tháng năm 123165(FE) -> dd/MM/yyyy(BE)
+    let formatDate = new Date(currentDate).getTime(); // ngày convert lưu db 123165(FE) -> dd/MM/yyyy(BE)
 
     if (!currentDate) {
       toast.error("Please choose date");

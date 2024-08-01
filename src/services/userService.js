@@ -109,6 +109,14 @@ const getAllClinic = () => {
 const getDetailClinicById = (data) => {
   return customizeAxios.get(`/api/get-detail-clinic-by-id?id=${data.id}`); // dùng để show detail khi click vào slider
 };
+
+// ngày
+const getAllPatientForDoctor = (data) => {
+  return customizeAxios.get(
+    `/api/get-list-patient-for-doctor?doctorID=${data.doctorID}&date=${data.date}`
+  );
+};
+
 export {
   handleLoginApi,
   fetchAllUser,
@@ -134,4 +142,5 @@ export {
   createNewClinic,
   getAllClinic,
   getDetailClinicById,
+  getAllPatientForDoctor,
 };

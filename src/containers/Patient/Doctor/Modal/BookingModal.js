@@ -71,7 +71,8 @@ class BookingModal extends Component {
       email: this.state.email,
       address: this.state.address,
       reason: this.state.reason,
-      date: date,
+      date: this.props.dataScheduleTimeModal.date,
+      birthday: date,
       selectedGender: this.state.selectedGender.value,
       timeType: this.state.timeType,
       language: this.props.language,
@@ -242,7 +243,7 @@ class BookingModal extends Component {
                   <label>
                     <FormattedMessage id={"patient.booking-modal.birthDay"} />
                   </label>
-                  <DatePicker // input chọn ngày
+                  <DatePicker // ngày input chọn
                     onChange={this.handleOnChangeDatePicker} // vì là props nên kh ()
                     className="form-control"
                     selected={this.state.birthday} // đây giống như value bên input , có thể thay selected thành value
