@@ -10,8 +10,8 @@ import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import DoctorSchedule from "./DoctorSchedule";
 import DoctorExtraInfo from "./DoctorExtraInfo";
-// import LikeAndShare from "../SocialPlugin/LikeAndShare";
-// import Comment from "../SocialPlugin/Comment";
+import LikeAndShare from "../SocialPlugin/LikeAndShare";
+import Comment from "../SocialPlugin/Comment";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -55,7 +55,11 @@ class DetailDoctor extends Component {
     // fix bug render currentDoctorID = -1 khi mới run
     let currentDoctorID = this.state.currentDoctorID; // lấy giá trị cuối cùng từ setState
 
-    
+    // like and share , comment plugin Facebook
+    let currentURL =
+      process.env.REACT_APP_IS_LOCALHOST == true
+        ? "https://NguyenMinhTienWeb.herokuapp.com/"
+        : window.location.href;
 
     return (
       <>
@@ -84,7 +88,10 @@ class DetailDoctor extends Component {
                     <span>{detailDoctor.Markdown.description}</span>
                   )}
 
-              
+                {/* like and share plugin Facebook */}
+                {/* <div className="like-share-plugin">
+                  <LikeAndShare dataHref={currentURL} />
+                </div> */}
               </div>
             </div>
           </div>
@@ -110,7 +117,10 @@ class DetailDoctor extends Component {
               )}
           </div>
 
-        
+          {/* like and share plugin Facebook */}
+          {/* <div className="comment-doctor">
+            <Comment dataHref={currentURL} width={"100%"} />
+          </div> */}
         </div>
       </>
     );
