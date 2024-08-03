@@ -22,27 +22,27 @@ class HandBook extends Component {
                 <div className="section-customize handBook-customize">
                   {/* dùng div chèn ảnh phải set height và width -> dùng style */}
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
                 <div className="section-customize handBook-customize">
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
                 <div className="section-customize handBook-customize">
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
                 <div className="section-customize handBook-customize">
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
                 <div className="section-customize handBook-customize">
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
                 <div className="section-customize handBook-customize">
                   <div className="bg-img"> </div>
-                  <div>Cơ xương khớp 1</div>
+                  <div>Cẩm nang 1</div>
                 </div>
               </Slider>
             </div>

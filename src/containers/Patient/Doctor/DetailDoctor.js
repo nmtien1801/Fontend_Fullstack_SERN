@@ -10,6 +10,8 @@ import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import DoctorSchedule from "./DoctorSchedule";
 import DoctorExtraInfo from "./DoctorExtraInfo";
+// import LikeAndShare from "../SocialPlugin/LikeAndShare";
+// import Comment from "../SocialPlugin/Comment";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -52,6 +54,9 @@ class DetailDoctor extends Component {
 
     // fix bug render currentDoctorID = -1 khi mới run
     let currentDoctorID = this.state.currentDoctorID; // lấy giá trị cuối cùng từ setState
+
+    
+
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -78,6 +83,8 @@ class DetailDoctor extends Component {
                   detailDoctor.Markdown.description && (
                     <span>{detailDoctor.Markdown.description}</span>
                   )}
+
+              
               </div>
             </div>
           </div>
@@ -102,7 +109,8 @@ class DetailDoctor extends Component {
                 ></div>
               )}
           </div>
-          <div className="comment-doctor"></div>
+
+        
         </div>
       </>
     );

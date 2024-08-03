@@ -11,7 +11,13 @@
 
     .mp-btn-confirm {
     }
-    .btn-send-bill {
-    }
+  }
+}
+
+// loading
+div._loading_overlay_wrapper {
+  position: unset; // full màn hình
+  ._loading_overlay_overlay {
+    z-index: 1000000; // cho in đậm lên modal RemedyModal
   }
 }
