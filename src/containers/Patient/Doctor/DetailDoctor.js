@@ -89,9 +89,9 @@ class DetailDoctor extends Component {
                   )}
 
                 {/* like and share plugin Facebook */}
-                {/* <div className="like-share-plugin">
+                <div className="like-share-plugin">
                   <LikeAndShare dataHref={currentURL} />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
@@ -118,9 +118,9 @@ class DetailDoctor extends Component {
           </div>
 
           {/* like and share plugin Facebook */}
-          {/* <div className="comment-doctor">
+          <div className="comment-doctor">
             <Comment dataHref={currentURL} width={"100%"} />
-          </div> */}
+          </div>
         </div>
       </>
     );

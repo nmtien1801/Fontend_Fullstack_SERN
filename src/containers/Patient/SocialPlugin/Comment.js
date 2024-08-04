@@ -23,16 +23,18 @@ class Comment extends Component {
 
     let { language } = this.props;
     let locale = language === LANGUAGE.VI ? "vi_VN" : "en_US";
-    window.fbAsyncInit = (function () {
+    window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
         cookie: true, // dùng cookie để xác thực người dùng
         xfbml: true, // chèn plugin vào website
         version: "v11.0", // or v2.5
       });
-    })(
+    };
+    
+    (
       //load the SDK asynchronously
-      function (d, s, id) {
+      (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
@@ -42,8 +44,8 @@ class Comment extends Component {
         js.id = id;
         js.src = `//connect.facebook.net/${locale}/sdk.js`;
         fjs.parentNode.insertBefore(js, fjs);
-      }
-    )(document, "script", "facebook-jssdk");
+      })(document, "script", "facebook-jssdk")
+    );
   }
 
   async componentDidMount() {

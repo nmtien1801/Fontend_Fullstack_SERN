@@ -13,7 +13,7 @@ class LikeAndShare extends Component {
   }
 
   // search: like and share plugin facebook
-  // search: facebook sdk
+  // search: facebook sdk( giống api -> phải follow cú pháp của nó -> để sd bên thứ 3)
   initFacebookSDK() {
     // bug: khi refesh lại thì mất nút like, share
     // facebook khi refresh sẽ hiểu là đã load rồi nên mất
@@ -23,27 +23,27 @@ class LikeAndShare extends Component {
 
     let { language } = this.props;
     let locale = language === LANGUAGE.VI ? "vi_VN" : "en_US";
-    window.fbAsyncInit = (function () {
+    window.fbAsyncInit = function () {
       window.FB.init({
         appId: process.env.REACT_APP_FACEBOOK_APP_ID,
         cookie: true, // dùng cookie để xác thực người dùng
         xfbml: true, // chèn plugin vào website
         version: "v11.0", // or v2.5
       });
-    })(
-      //load the SDK asynchronously
-      function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-          return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = `//connect.facebook.net/${locale}/sdk.js`;
-        fjs.parentNode.insertBefore(js, fjs);
+    };
+
+    //load the SDK asynchronously
+    (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
       }
-    )(document, "script", "facebook-jssdk");
+      js = d.createElement(s);
+      js.id = id;
+      js.src = `//connect.facebook.net/${locale}/sdk.js`;
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
   }
 
   async componentDidMount() {
