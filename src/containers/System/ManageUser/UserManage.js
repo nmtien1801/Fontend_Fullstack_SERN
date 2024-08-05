@@ -259,10 +259,10 @@ class UserManage extends Component {
         />
 
         <ModalUser
-          show={this.state.isShowModalUser}
+          show={isShowModalUser}
           onHideModalUser={this.onHideModalUser}
-          action={this.state.actionModalUser}
-          dataModal={this.state.dataModalUser}
+          action={actionModalUser}
+          dataModal={dataModalUser}
         />
       </>
     );

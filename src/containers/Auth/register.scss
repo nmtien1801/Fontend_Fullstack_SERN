@@ -1,0 +1,61 @@
+.register-container {
+  min-height: 100vh;
+  background-color: #f0f2f5;
+
+  .content-left {
+    margin-top: 80px;
+    .brand {
+      color: #1877f2;
+      text-transform: uppercase;
+      font-size: 30px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .detail {
+      font-size: 30px;
+    }
+  }
+
+  .content-right {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    .brand {
+      color: #1877f2;
+      text-transform: uppercase;
+      font-size: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .forgot-password {
+      text-align: center;
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .btn-createAccount {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .return {
+      a {
+        text-decoration: none;
+      }
+      span {
+        padding-left: 7px;
+      }
+    }
+  }
+}

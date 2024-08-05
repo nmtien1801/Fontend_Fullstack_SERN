@@ -157,7 +157,6 @@ const ModalUser = (props) => {
   };
 
   const handleCloseModalUser = () => {
-    console.log("props", props);
     props.onHideModalUser();
     setUserData(defaultUserData);
     setValidInput(validInputsDefault);

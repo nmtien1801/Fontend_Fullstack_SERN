@@ -7,6 +7,7 @@ import { FormattedMessage } from "react-intl"; // chuyển đổi ngôn ngữ
 import { Link } from "react-router-dom";
 import { handleLoginApi } from "../../services/userService";
 import { toast } from "react-toastify";
+import { Redirect, withRouter } from "react-router-dom"; // điều hướng khi click vào home - giống history.push
 
 class Login extends Component {
   constructor(props) {
@@ -75,6 +76,10 @@ class Login extends Component {
     if (event.key === "Enter" && event.charCode === 13) {
       this.handleLogin();
     }
+  };
+
+  handleCreateNewAccount = () => {
+    this.props.history.push("/register");
   };
 
   render() {
@@ -162,7 +167,7 @@ class Login extends Component {
               <div className="btn-createAccount">
                 <button
                   className="btn btn-success"
-                  // onClick={() => this.handleCreateNewAccount()}
+                  onClick={() => this.handleCreateNewAccount()}
                 >
                   Create New Acount
                 </button>
@@ -201,4 +206,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

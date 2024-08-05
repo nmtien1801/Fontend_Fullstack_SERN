@@ -4,6 +4,15 @@ const handleLoginApi = (valueLogin, password) => {
   return customizeAxios.post(`/api/v1/login`, { valueLogin, password });
 };
 
+const registerNewUser = (email, phone, userName, password) => {
+  return customizeAxios.post("/api/v1/register", {
+    email,
+    phone,
+    userName,
+    password,
+  });
+};
+
 const logoutUser = () => {
   return customizeAxios.post("/api/v1/logout");
 };
@@ -123,6 +132,7 @@ const postSendRemedy = (data) => {
 
 export {
   handleLoginApi,
+  registerNewUser,
   fetchAllUser,
   fetchGroup,
   createNewUser,

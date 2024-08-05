@@ -21,6 +21,7 @@ import Home from "../routes/Home";
 // import Login from '../routes/Login';
 import Login from "./Auth/Login";
 import System from "../routes/System";
+import Register from "./Auth/register";
 
 import { CustomToastCloseButton } from "../components/CustomToast";
 import ConfirmModal from "../components/ConfirmModal";
@@ -70,6 +71,10 @@ class App extends Component {
                     component={userIsNotAuthenticated(Login)}
                   />
                   <Route
+                    path={path.REGISTER}
+                    component={userIsNotAuthenticated(Register)}
+                  />
+                  <Route
                     path={path.SYSTEM}
                     // các router system gộp chung lại tại đây
                     component={userIsAuthenticated(System)}
@@ -84,7 +89,10 @@ class App extends Component {
                     path={path.DETAIL_SPECIALTY}
                     component={DetailSpecialty}
                   />
-                  <Route path={"/doctor"} component={Doctor} />
+                  <Route
+                    path={"/doctor"}
+                    component={userIsAuthenticated(Doctor)}
+                  />
                   <Route
                     path={path.VERIFY_EMAIL_BOOKING}
                     component={VerifyEmail}
