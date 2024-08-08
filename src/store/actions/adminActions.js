@@ -18,7 +18,7 @@ export const fetchGenderStart = () => {
     try {
       dispatch({ type: actionTypes.FETCH_GENDER_START });
 
-      let res = await getAllCode("gender");
+      let res = await getAllCode("GENDER");
       if (res && res.EC === 0) {
         dispatch(fetchGenderSuccess(res.DT));
       } else {
@@ -43,7 +43,7 @@ export const fetchGenderFail = () => ({
 export const fetchPositionStart = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getAllCode("position");
+      let res = await getAllCode("POSITION");
       if (res && res.EC === 0) {
         dispatch(fetchPositionSuccess(res.DT));
       } else {
@@ -68,7 +68,7 @@ export const fetchPositionFail = () => ({
 export const fetchRoleStart = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getAllCode("role");
+      let res = await getAllCode("ROLE");
       if (res && res.EC === 0) {
         dispatch(fetchRoleSuccess(res.DT));
       } else {
@@ -151,7 +151,7 @@ export const fetchAllUserStart = (currentPage, currentLimit) => {
     try {
       let res = await fetchAllUser(currentPage, currentLimit);
       let res1 = await getTopDoctorHome(10);
-
+      console.log("res", res);
       if (res && res.EC === 0) {
         dispatch(fetchAllUserSuccess(res.DT));
       } else {
