@@ -41,7 +41,7 @@ export default (history) =>
   combineReducers({
     router: connectRouter(history),
     // admin: persistReducer(adminPersistConfig, adminReducer),
-    user: persistReducer(userPersistConfig, userReducer),
+    user: persistReducer(userPersistConfig, userReducer), // lưu trong localStorage
     app: persistReducer(appPersistConfig, appReducer),
-    admin: adminReducer,
+    admin: adminReducer, // không lưu trong localStorage
   });

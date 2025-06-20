@@ -1,68 +1,61 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Project Learning App Mobile
 
-In the project directory, you can run:
+Project Schedule a medical examination
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Install
 
-### `npm test`
+ - [node v14](https://github.com/nmtien1801/fullStack_Nodejs_Reactjs.git)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Running Tests
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To run tests, run the following command
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+  npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Screenshots
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/login.png?raw=true" alt="Login" width="300"/>
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+*Hình 1: Màn hình Đăng nhập và Đăng ký với giao diện đơn giản, thân thiện.*
 
-### Analyzing the Bundle Size
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/trangchu.png?raw=true" alt="Login" width="300"/>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+*Hình 2: home*
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/chonLichKham.png?raw=true" alt="Login" width="300"/>
 
-### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+*Hình 3: bệnh nhân chọn lịch khám*
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/CRUD_benh_nhan.png?raw=true" alt="Login" width="300"/>
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+*Hình 4: Quản lý bệnh nhân*
+
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/taolichKhamChoBacSi.png?raw=true" alt="Login" width="300"/>
+
+
+*Hình 5:Tạo lịch khám cho bác sĩ*
+
+<img src="https://github.com/nmtien1801/Fontend_Fullstack_SERN/blob/main/assets/image/taoChuyenKhoa.png?raw=true" alt="Login" width="300"/>
+
+
+*Hình 6:Tạo chuyên khoa*
+
+
